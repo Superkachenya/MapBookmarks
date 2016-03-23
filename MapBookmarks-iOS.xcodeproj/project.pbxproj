@@ -18,6 +18,9 @@
 		8E1797D31CA296F000206FCD /* MBCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797D21CA296F000206FCD /* MBCoreDataStack.m */; };
 		8E1797D51CA29B4E00206FCD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1797CF1CA296E300206FCD /* MapKit.framework */; };
 		8E1797D81CA2B26C00206FCD /* MBPin.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797D71CA2B26C00206FCD /* MBPin.m */; };
+		8E1797DD1CA2DA8900206FCD /* MBNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797DC1CA2DA8900206FCD /* MBNetworkManager.m */; };
+		8E1797E11CA2F17100206FCD /* MBBookmarksTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797E01CA2F17100206FCD /* MBBookmarksTableViewController.m */; };
+		8E1797E91CA30A6D00206FCD /* MBPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797E81CA30A6D00206FCD /* MBPlace.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +53,12 @@
 		8E1797D21CA296F000206FCD /* MBCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCoreDataStack.m; sourceTree = "<group>"; };
 		8E1797D61CA2B26C00206FCD /* MBPin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBPin.h; path = Model/MBPin.h; sourceTree = "<group>"; };
 		8E1797D71CA2B26C00206FCD /* MBPin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBPin.m; path = Model/MBPin.m; sourceTree = "<group>"; };
+		8E1797DB1CA2DA8900206FCD /* MBNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBNetworkManager.h; path = NetworkManager/MBNetworkManager.h; sourceTree = "<group>"; };
+		8E1797DC1CA2DA8900206FCD /* MBNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBNetworkManager.m; path = NetworkManager/MBNetworkManager.m; sourceTree = "<group>"; };
+		8E1797DF1CA2F17100206FCD /* MBBookmarksTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBBookmarksTableViewController.h; path = Controllers/MBBookmarksTableViewController.h; sourceTree = "<group>"; };
+		8E1797E01CA2F17100206FCD /* MBBookmarksTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBBookmarksTableViewController.m; path = Controllers/MBBookmarksTableViewController.m; sourceTree = "<group>"; };
+		8E1797E71CA30A6D00206FCD /* MBPlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBPlace.h; path = Model/MBPlace.h; sourceTree = "<group>"; };
+		8E1797E81CA30A6D00206FCD /* MBPlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBPlace.m; path = Model/MBPlace.m; sourceTree = "<group>"; };
 		A2DADB760B1262E4A89EAC4D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B69A5E76DF02F78D07EF5A69 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,8 +126,8 @@
 			children = (
 				8E1797AD1CA2943300206FCD /* AppDelegate.h */,
 				8E1797AE1CA2943300206FCD /* AppDelegate.m */,
-				8E1797B01CA2943300206FCD /* MBMapViewController.h */,
-				8E1797B11CA2943300206FCD /* MBMapViewController.m */,
+				8E1797DE1CA2DA8C00206FCD /* NetworkManager */,
+				8E1797DA1CA2DA4900206FCD /* Controllers */,
 				8E1797D91CA2B27500206FCD /* Model */,
 				8E1797B31CA2943400206FCD /* Main.storyboard */,
 				8E1797D41CA2974F00206FCD /* CoreDataStack */,
@@ -161,8 +170,30 @@
 			children = (
 				8E1797D61CA2B26C00206FCD /* MBPin.h */,
 				8E1797D71CA2B26C00206FCD /* MBPin.m */,
+				8E1797E71CA30A6D00206FCD /* MBPlace.h */,
+				8E1797E81CA30A6D00206FCD /* MBPlace.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		8E1797DA1CA2DA4900206FCD /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8E1797B01CA2943300206FCD /* MBMapViewController.h */,
+				8E1797B11CA2943300206FCD /* MBMapViewController.m */,
+				8E1797DF1CA2F17100206FCD /* MBBookmarksTableViewController.h */,
+				8E1797E01CA2F17100206FCD /* MBBookmarksTableViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		8E1797DE1CA2DA8C00206FCD /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				8E1797DB1CA2DA8900206FCD /* MBNetworkManager.h */,
+				8E1797DC1CA2DA8900206FCD /* MBNetworkManager.m */,
+			);
+			name = NetworkManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -317,7 +348,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E1797E91CA30A6D00206FCD /* MBPlace.m in Sources */,
+				8E1797E11CA2F17100206FCD /* MBBookmarksTableViewController.m in Sources */,
 				8E1797B21CA2943300206FCD /* MBMapViewController.m in Sources */,
+				8E1797DD1CA2DA8900206FCD /* MBNetworkManager.m in Sources */,
 				8E1797AF1CA2943300206FCD /* AppDelegate.m in Sources */,
 				8E1797D31CA296F000206FCD /* MBCoreDataStack.m in Sources */,
 				8E1797AC1CA2943300206FCD /* main.m in Sources */,

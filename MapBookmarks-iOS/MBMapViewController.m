@@ -7,6 +7,7 @@
 //
 
 #import "MBMapViewController.h"
+#import "MBNetworkManager.h"
 @import MapKit;
 @import CoreLocation;
 #import "MBPin.h"
@@ -15,7 +16,6 @@
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) MBPin *pin;
 
 @end
 
@@ -46,16 +46,33 @@
                                                            eyeAltitude:kCLLocationAccuracyKilometer];
     [self.mapView setCamera:camera];
 }
-- (IBAction)userDidAddPin:(UILongPressGestureRecognizer *)sender {
-    [self.mapView removeAnnotation:self.pin];
-    if (!self.pin) {
-        self.pin = [MBPin new];
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    if ([annotation isKindOfClass:[MBPin class]]) {
+        MBPin *myPin = (MBPin *)annotation;
+        MKAnnotationView *annotationView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:@"MBPin"];
+        if (!annotationView) {
+            annotationView = [myPin annotationView];
+        } else {
+            annotationView.annotation = annotation;
+        }
+        return annotationView;
+    } else {
+        return nil;
     }
+    
+}
+
+- (IBAction)userDidAddPin:(UILongPressGestureRecognizer *)sender {
+    MBPin *pin = [MBPin new];
     CGPoint touchPoint = [sender locationInView:self.mapView];
     CLLocationCoordinate2D location = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-    self.pin.title = @"Bamboleyo";
-    self.pin.coordinate = location;
-    [self.mapView addAnnotation:self.pin];
+    MKAnnotationView *annotation = [[MKAnnotationView alloc] initWithAnnotation:pin reuseIdentifier:@"pin"];
+    annotation.draggable = YES;
+    pin.title = @"Bamboleyo";
+    pin.coordinate = location;
+    [MBNetworkManager downloadNearbyPlacesUsingLatitude:pin.coordinate.latitude andLongitude:pin.coordinate.longitude];
+    [self.mapView addAnnotation:pin];
 }
 
 @end

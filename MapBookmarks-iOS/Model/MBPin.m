@@ -10,4 +10,24 @@
 
 @implementation MBPin
 
+- (MKAnnotationView *)annotationView {
+    MKAnnotationView *annotationView = [[MKAnnotationView alloc] initWithAnnotation:self reuseIdentifier:@"MBPin"];
+    annotationView.enabled = YES;
+    annotationView.canShowCallout = YES;
+    annotationView.draggable = YES;
+    annotationView.image = [UIImage imageNamed:@"pin"];
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    [button addTarget:self action:@selector(didTapButton:) forControlEvents:UIControlEventTouchUpInside];
+    annotationView.rightCalloutAccessoryView = button;
+    
+    return annotationView;
+}
+
+- (void)didTapButton:(id)sender {
+    NSLog(@"Success!!!");
+}
+
++ (void)downloadNearbyPlacesUsing:(CGFloat)latitude and:(CGFloat)longitude {
+    
+}
 @end
