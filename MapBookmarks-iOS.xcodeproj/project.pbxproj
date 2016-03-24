@@ -184,8 +184,7 @@
 			children = (
 				8E1797B01CA2943300206FCD /* MBMapViewController.h */,
 				8E1797B11CA2943300206FCD /* MBMapViewController.m */,
-				8EB57D561CA3F27A00CB2568 /* MBContentPopoverViewController.h */,
-				8EB57D571CA3F27A00CB2568 /* MBContentPopoverViewController.m */,
+				8EB57D591CA44E2900CB2568 /* RouteInfo */,
 				8E1797DF1CA2F17100206FCD /* MBBookmarksTableViewController.h */,
 				8E1797E01CA2F17100206FCD /* MBBookmarksTableViewController.m */,
 			);
@@ -199,6 +198,15 @@
 				8E1797DC1CA2DA8900206FCD /* MBNetworkManager.m */,
 			);
 			name = NetworkManager;
+			sourceTree = "<group>";
+		};
+		8EB57D591CA44E2900CB2568 /* RouteInfo */ = {
+			isa = PBXGroup;
+			children = (
+				8EB57D561CA3F27A00CB2568 /* MBContentPopoverViewController.h */,
+				8EB57D571CA3F27A00CB2568 /* MBContentPopoverViewController.m */,
+			);
+			name = RouteInfo;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

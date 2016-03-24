@@ -41,7 +41,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Bookmarks" id="xQx-W4-mVc">
                             <connections>
-                                <segue destination="Plr-fF-Xrr" kind="show" id="sRc-p5-4Rd"/>
+                                <segue destination="Plr-fF-Xrr" kind="show" id="bSR-gc-OmJ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -112,7 +112,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9x9-B6-X6q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="442" y="569"/>
+            <point key="canvasLocation" x="397" y="569"/>
         </scene>
         <!--Content Popover View Controller-->
         <scene sceneID="X0D-fA-xvP">
@@ -176,7 +176,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZWS-0S-94L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="871" y="569"/>
+            <point key="canvasLocation" x="38" y="1206"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1cR-Le-KpP">

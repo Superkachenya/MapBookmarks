@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class MBPin;
 
 @interface MBContentPopoverViewController : UIViewController
 
 @property (strong, nonatomic) NSArray *pins;
+@property (copy, nonatomic)void(^drawRouteBlock)(MBPin *pin);
 
 @end

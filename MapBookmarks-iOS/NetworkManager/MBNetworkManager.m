@@ -28,7 +28,7 @@ NSString *const baseURL = @"https://api.foursquare.com/v2/venues/search?ll=";
                  [newPlace getPlace:place];
                  [places addObject:newPlace];
              }
-             NSLog(@"%lu", places.count);
+             
          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
              NSLog(@"%@", error.localizedDescription);
              

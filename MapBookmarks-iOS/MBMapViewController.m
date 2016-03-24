@@ -21,6 +21,7 @@
 @property (strong, nonatomic) NSMutableArray *bookmarks;
 @property (strong, nonatomic) WYPopoverController *popover;
 
+
 @end
 
 @implementation MBMapViewController
@@ -37,7 +38,6 @@
     [self.locationManager startUpdatingLocation];
     self.bookmarks = [NSMutableArray new];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -67,7 +67,24 @@
     } else {
         return nil;
     }
-    
+}
+
+#pragma mark - Draw route methods
+
+- (void)showRouteFromUserTo:(MBPin *)pin {
+    [self.mapView removeOverlays:self.mapView.overlays];
+    CLLocationCoordinate2D coordinateArray[2];
+    coordinateArray[0] = self.mapView.userLocation.coordinate;
+    coordinateArray[1] = pin.coordinate;
+    MKPolyline *polyline = [MKPolyline polylineWithCoordinates:coordinateArray count:2];
+    [self.mapView addOverlay:polyline];
+}
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id < MKOverlay >)overlay {
+    MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithOverlay:overlay];
+    renderer.strokeColor = [UIColor purpleColor];
+    renderer.lineWidth = 5.0;
+    return renderer;
 }
 
 #pragma mark - WYPopoverControllerDelegate
@@ -90,7 +107,6 @@
         MBPin *pin = [MBPin new];
         CGPoint touchPoint = [sender locationInView:self.mapView];
         CLLocationCoordinate2D location = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-        pin.title = @"Bamboleyo";
         pin.coordinate = location;
         [self.bookmarks addObject:pin];
         [MBNetworkManager downloadNearbyPlacesUsingLatitude:pin.coordinate.latitude andLongitude:pin.coordinate.longitude];
@@ -99,17 +115,28 @@
 }
 
 - (IBAction)routeButtonDidTap:(UIBarButtonItem *)sender {
+    if ([sender.title isEqualToString:@"Clear"]) {
+        [self.mapView removeOverlays:self.mapView.overlays];
+        sender.title = @"Route";
+        [self.mapView addAnnotations:self.bookmarks];
+    } else {
     MBContentPopoverViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"MBContentViewController"];
     controller.preferredContentSize = CGSizeMake(self.view.bounds.size.width /2, self.view.bounds.size.height /2);
     controller.modalInPopover = NO;
     controller.pins = [self.bookmarks copy];
+    controller.drawRouteBlock = ^(MBPin *pin) {
+        [self showRouteFromUserTo:pin];
+        [self.popover dismissPopoverAnimated:YES];
+        sender.title = @"Clear";
+    };
     self.popover = [[WYPopoverController alloc] initWithContentViewController:controller];
     self.popover.delegate = self;
     self.popover.popoverLayoutMargins = UIEdgeInsetsMake(10, 10, 10, 10);
     self.popover.wantsDefaultContentAppearance = NO;
     [self.popover presentPopoverFromBarButtonItem:sender
                          permittedArrowDirections:WYPopoverArrowDirectionDown
-                                         animated:YES];;
+                                         animated:YES];
+    }
 }
 
 @end

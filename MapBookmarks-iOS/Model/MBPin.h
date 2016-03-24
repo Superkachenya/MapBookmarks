@@ -8,10 +8,12 @@
 
 @import Foundation;
 @import MapKit;
+@class MBPlace;
 @interface MBPin : NSObject <MKAnnotation>
 
 @property (copy, nonatomic) NSString *title;
 @property (assign, nonatomic) CLLocationCoordinate2D coordinate;
+@property (strong, nonatomic) MBPlace *localPlace;
 
 - (MKAnnotationView *)annotationView;
 

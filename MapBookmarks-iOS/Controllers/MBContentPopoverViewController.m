@@ -40,6 +40,11 @@
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%f, %f", pin.coordinate.latitude, pin.coordinate.longitude];
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.drawRouteBlock(self.pins[indexPath.row]);
+}
+
 /*
 #pragma mark - Navigation
 
