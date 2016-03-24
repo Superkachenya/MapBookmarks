@@ -31,6 +31,7 @@
         [self.locationManager requestAlwaysAuthorization];
     }
     [self.locationManager startUpdatingLocation];
+
 }
 
 
@@ -64,15 +65,18 @@
 }
 
 - (IBAction)userDidAddPin:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        [self.mapView removeGestureRecognizer:sender];
+    } else {
     MBPin *pin = [MBPin new];
     CGPoint touchPoint = [sender locationInView:self.mapView];
     CLLocationCoordinate2D location = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-    MKAnnotationView *annotation = [[MKAnnotationView alloc] initWithAnnotation:pin reuseIdentifier:@"pin"];
-    annotation.draggable = YES;
     pin.title = @"Bamboleyo";
     pin.coordinate = location;
     [MBNetworkManager downloadNearbyPlacesUsingLatitude:pin.coordinate.latitude andLongitude:pin.coordinate.longitude];
     [self.mapView addAnnotation:pin];
+    }
+    [self.mapView addGestureRecognizer:sender];
 }
 
 @end

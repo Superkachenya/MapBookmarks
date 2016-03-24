@@ -27,7 +27,4 @@
     NSLog(@"Success!!!");
 }
 
-+ (void)downloadNearbyPlacesUsing:(CGFloat)latitude and:(CGFloat)longitude {
-    
-}
 @end

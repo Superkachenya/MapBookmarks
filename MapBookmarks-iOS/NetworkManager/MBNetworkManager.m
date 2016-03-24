@@ -17,7 +17,7 @@ NSString *const baseURL = @"https://api.foursquare.com/v2/venues/search?ll=";
 + (void)downloadNearbyPlacesUsingLatitude:(double)latitude andLongitude:(double)longitude {
 
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    NSString *string = [NSString stringWithFormat:@"%@%f,%f&oauth_token=A5ZDWL2DLXPZCQ3ZJESVOAKDMPQHSNNVWC3UMVOUOXPQHWRT&v=20121105",baseURL, latitude, longitude];
+    NSString *string = [NSString stringWithFormat:@"%@%f,%f&limit=10&oauth_token=A5ZDWL2DLXPZCQ3ZJESVOAKDMPQHSNNVWC3UMVOUOXPQHWRT&v=20121105",baseURL, latitude, longitude];
     [manager GET:string parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSArray *venues = [responseObject valueForKeyPath:@"response.venues"];
         NSMutableArray *places = [NSMutableArray new];
@@ -26,7 +26,7 @@ NSString *const baseURL = @"https://api.foursquare.com/v2/venues/search?ll=";
             [newPlace getPlace:place];
             [places addObject:newPlace];
         }
-        NSLog(@"%@", places);
+        NSLog(@"%lu", places.count);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@", error.localizedDescription);
 

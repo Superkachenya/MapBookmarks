@@ -10,11 +10,13 @@
 
 @implementation MBPlace
 
--(void)getPlace:(id)place {
+- (void)getPlace:(id)place {
     self.title = [place valueForKey:@"name"];
     self.placeDescription = [place valueForKeyPath:@"categories.name"];
-//    self.latitude = (double)[place valueForKeyPath:@"location.lat"];
-//    self.longitude = [place valueForKeyPath:@"location.lng"];
+    NSNumber *lat = [place valueForKeyPath:@"location.lat"];
+    NSNumber *lng = [place valueForKeyPath:@"location.lng"];
+    self.latitude = [lat doubleValue];
+    self.longitude = [lng doubleValue];
 }
 
 @end
