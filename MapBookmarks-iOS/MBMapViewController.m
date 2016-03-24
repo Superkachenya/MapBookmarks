@@ -11,11 +11,15 @@
 @import MapKit;
 @import CoreLocation;
 #import "MBPin.h"
+#import "WYPopoverController.h"
+#import "MBContentPopoverViewController.h"
 
-@interface MBMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate>
+@interface MBMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, WYPopoverControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) NSMutableArray *bookmarks;
+@property (strong, nonatomic) WYPopoverController *popover;
 
 @end
 
@@ -31,7 +35,7 @@
         [self.locationManager requestAlwaysAuthorization];
     }
     [self.locationManager startUpdatingLocation];
-
+    self.bookmarks = [NSMutableArray new];
 }
 
 
@@ -39,6 +43,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - MKMapViewDelegate
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
     MKMapCamera *camera = [MKMapCamera cameraLookingAtCenterCoordinate:userLocation.coordinate
@@ -64,19 +70,46 @@
     
 }
 
+#pragma mark - WYPopoverControllerDelegate
+
+- (BOOL)popoverControllerShouldDismissPopover:(WYPopoverController *)controller {
+    return YES;
+}
+
+- (void)popoverControllerDidDismissPopover:(WYPopoverController *)controller {
+    self.popover.delegate = nil;
+    self.popover = nil;
+}
+
+#pragma mark - HandleEvents
+
 - (IBAction)userDidAddPin:(UILongPressGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateEnded) {
-        [self.mapView removeGestureRecognizer:sender];
+        return;
     } else {
-    MBPin *pin = [MBPin new];
-    CGPoint touchPoint = [sender locationInView:self.mapView];
-    CLLocationCoordinate2D location = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-    pin.title = @"Bamboleyo";
-    pin.coordinate = location;
-    [MBNetworkManager downloadNearbyPlacesUsingLatitude:pin.coordinate.latitude andLongitude:pin.coordinate.longitude];
-    [self.mapView addAnnotation:pin];
+        MBPin *pin = [MBPin new];
+        CGPoint touchPoint = [sender locationInView:self.mapView];
+        CLLocationCoordinate2D location = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+        pin.title = @"Bamboleyo";
+        pin.coordinate = location;
+        [self.bookmarks addObject:pin];
+        [MBNetworkManager downloadNearbyPlacesUsingLatitude:pin.coordinate.latitude andLongitude:pin.coordinate.longitude];
+        [self.mapView addAnnotation:pin];
     }
-    [self.mapView addGestureRecognizer:sender];
+}
+
+- (IBAction)routeButtonDidTap:(UIBarButtonItem *)sender {
+    MBContentPopoverViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"MBContentViewController"];
+    controller.preferredContentSize = CGSizeMake(self.view.bounds.size.width /2, self.view.bounds.size.height /2);
+    controller.modalInPopover = NO;
+    controller.pins = [self.bookmarks copy];
+    self.popover = [[WYPopoverController alloc] initWithContentViewController:controller];
+    self.popover.delegate = self;
+    self.popover.popoverLayoutMargins = UIEdgeInsetsMake(10, 10, 10, 10);
+    self.popover.wantsDefaultContentAppearance = NO;
+    [self.popover presentPopoverFromBarButtonItem:sender
+                         permittedArrowDirections:WYPopoverArrowDirectionDown
+                                         animated:YES];;
 }
 
 @end

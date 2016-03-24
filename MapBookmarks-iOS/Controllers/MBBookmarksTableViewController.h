@@ -7,6 +7,7 @@
 //
 
 @import UIKit;
+
 @interface MBBookmarksTableViewController : UIViewController <UITabBarDelegate, UITableViewDataSource>
 
 @end
