@@ -17,7 +17,6 @@
 		8E1797C51CA2943400206FCD /* MapBookmarks_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797C41CA2943400206FCD /* MapBookmarks_iOSTests.m */; };
 		8E1797D31CA296F000206FCD /* MBCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797D21CA296F000206FCD /* MBCoreDataStack.m */; };
 		8E1797D51CA29B4E00206FCD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E1797CF1CA296E300206FCD /* MapKit.framework */; };
-		8E1797D81CA2B26C00206FCD /* MBPin.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797D71CA2B26C00206FCD /* MBPin.m */; };
 		8E1797DD1CA2DA8900206FCD /* MBNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797DC1CA2DA8900206FCD /* MBNetworkManager.m */; };
 		8E1797E11CA2F17100206FCD /* MBBookmarksTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797E01CA2F17100206FCD /* MBBookmarksTableViewController.m */; };
 		8E1797E91CA30A6D00206FCD /* MBPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797E81CA30A6D00206FCD /* MBPlace.m */; };
@@ -25,6 +24,10 @@
 		8EE20F761CA5333100DF560A /* MBButtonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE20F751CA5333100DF560A /* MBButtonsViewController.m */; };
 		8EE20F791CA53AC200DF560A /* MBNearbyPlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE20F781CA53AC200DF560A /* MBNearbyPlacesViewController.m */; };
 		8EE20F7C1CA5407400DF560A /* MBStoryboardConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE20F7B1CA5407400DF560A /* MBStoryboardConstants.m */; };
+		8EE20F801CA59B7100DF560A /* MBPin.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8EE20F7E1CA59B7100DF560A /* MBPin.xcdatamodeld */; };
+		8EE20F851CA59BEA00DF560A /* MBPin+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE20F821CA59BEA00DF560A /* MBPin+CoreDataProperties.m */; };
+		8EE20F861CA59BEA00DF560A /* MBPin.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE20F841CA59BEA00DF560A /* MBPin.m */; };
+		8EE20F8D1CA5A51600DF560A /* NSManagedObjectContext+MBSave.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE20F8C1CA5A51600DF560A /* NSManagedObjectContext+MBSave.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,8 +58,6 @@
 		8E1797CF1CA296E300206FCD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8E1797D11CA296F000206FCD /* MBCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBCoreDataStack.h; sourceTree = "<group>"; };
 		8E1797D21CA296F000206FCD /* MBCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCoreDataStack.m; sourceTree = "<group>"; };
-		8E1797D61CA2B26C00206FCD /* MBPin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBPin.h; path = Model/MBPin.h; sourceTree = "<group>"; };
-		8E1797D71CA2B26C00206FCD /* MBPin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBPin.m; path = Model/MBPin.m; sourceTree = "<group>"; };
 		8E1797DB1CA2DA8900206FCD /* MBNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBNetworkManager.h; path = NetworkManager/MBNetworkManager.h; sourceTree = "<group>"; };
 		8E1797DC1CA2DA8900206FCD /* MBNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBNetworkManager.m; path = NetworkManager/MBNetworkManager.m; sourceTree = "<group>"; };
 		8E1797DF1CA2F17100206FCD /* MBBookmarksTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBBookmarksTableViewController.h; path = Controllers/MBBookmarksTableViewController.h; sourceTree = "<group>"; };
@@ -71,6 +72,13 @@
 		8EE20F781CA53AC200DF560A /* MBNearbyPlacesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBNearbyPlacesViewController.m; path = Controllers/MBNearbyPlacesViewController.m; sourceTree = "<group>"; };
 		8EE20F7A1CA5407400DF560A /* MBStoryboardConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBStoryboardConstants.h; path = Controllers/StoryboardSegues/MBStoryboardConstants.h; sourceTree = "<group>"; };
 		8EE20F7B1CA5407400DF560A /* MBStoryboardConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBStoryboardConstants.m; path = Controllers/StoryboardSegues/MBStoryboardConstants.m; sourceTree = "<group>"; };
+		8EE20F7F1CA59B7100DF560A /* MBPin.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MBPin.xcdatamodel; sourceTree = "<group>"; };
+		8EE20F811CA59BEA00DF560A /* MBPin+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBPin+CoreDataProperties.h"; sourceTree = "<group>"; };
+		8EE20F821CA59BEA00DF560A /* MBPin+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBPin+CoreDataProperties.m"; sourceTree = "<group>"; };
+		8EE20F831CA59BEA00DF560A /* MBPin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBPin.h; sourceTree = "<group>"; };
+		8EE20F841CA59BEA00DF560A /* MBPin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBPin.m; sourceTree = "<group>"; };
+		8EE20F8B1CA5A51600DF560A /* NSManagedObjectContext+MBSave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+MBSave.h"; sourceTree = "<group>"; };
+		8EE20F8C1CA5A51600DF560A /* NSManagedObjectContext+MBSave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+MBSave.m"; sourceTree = "<group>"; };
 		A2DADB760B1262E4A89EAC4D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B69A5E76DF02F78D07EF5A69 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -173,6 +181,8 @@
 			children = (
 				8E1797D11CA296F000206FCD /* MBCoreDataStack.h */,
 				8E1797D21CA296F000206FCD /* MBCoreDataStack.m */,
+				8EE20F8B1CA5A51600DF560A /* NSManagedObjectContext+MBSave.h */,
+				8EE20F8C1CA5A51600DF560A /* NSManagedObjectContext+MBSave.m */,
 			);
 			name = CoreDataStack;
 			sourceTree = "<group>";
@@ -180,10 +190,11 @@
 		8E1797D91CA2B27500206FCD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8E1797D61CA2B26C00206FCD /* MBPin.h */,
-				8E1797D71CA2B26C00206FCD /* MBPin.m */,
 				8E1797E71CA30A6D00206FCD /* MBPlace.h */,
 				8E1797E81CA30A6D00206FCD /* MBPlace.m */,
+				8EE20F831CA59BEA00DF560A /* MBPin.h */,
+				8EE20F841CA59BEA00DF560A /* MBPin.m */,
+				8EE20F871CA59F4D00DF560A /* CoreData */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -238,6 +249,16 @@
 				8EE20F7B1CA5407400DF560A /* MBStoryboardConstants.m */,
 			);
 			name = StoryboardConstants;
+			sourceTree = "<group>";
+		};
+		8EE20F871CA59F4D00DF560A /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				8EE20F7E1CA59B7100DF560A /* MBPin.xcdatamodeld */,
+				8EE20F811CA59BEA00DF560A /* MBPin+CoreDataProperties.h */,
+				8EE20F821CA59BEA00DF560A /* MBPin+CoreDataProperties.m */,
+			);
+			name = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -396,13 +417,16 @@
 				8EE20F761CA5333100DF560A /* MBButtonsViewController.m in Sources */,
 				8EB57D581CA3F27A00CB2568 /* MBRouteViewController.m in Sources */,
 				8E1797E11CA2F17100206FCD /* MBBookmarksTableViewController.m in Sources */,
+				8EE20F801CA59B7100DF560A /* MBPin.xcdatamodeld in Sources */,
 				8E1797B21CA2943300206FCD /* MBMapViewController.m in Sources */,
 				8E1797DD1CA2DA8900206FCD /* MBNetworkManager.m in Sources */,
 				8E1797AF1CA2943300206FCD /* AppDelegate.m in Sources */,
 				8E1797D31CA296F000206FCD /* MBCoreDataStack.m in Sources */,
+				8EE20F861CA59BEA00DF560A /* MBPin.m in Sources */,
 				8E1797AC1CA2943300206FCD /* main.m in Sources */,
 				8EE20F791CA53AC200DF560A /* MBNearbyPlacesViewController.m in Sources */,
-				8E1797D81CA2B26C00206FCD /* MBPin.m in Sources */,
+				8EE20F851CA59BEA00DF560A /* MBPin+CoreDataProperties.m in Sources */,
+				8EE20F8D1CA5A51600DF560A /* NSManagedObjectContext+MBSave.m in Sources */,
 				8EE20F7C1CA5407400DF560A /* MBStoryboardConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -608,6 +632,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8EE20F7E1CA59B7100DF560A /* MBPin.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8EE20F7F1CA59B7100DF560A /* MBPin.xcdatamodel */,
+			);
+			currentVersion = 8EE20F7F1CA59B7100DF560A /* MBPin.xcdatamodel */;
+			name = MBPin.xcdatamodeld;
+			path = Model/MBPin.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 8E17979F1CA2943300206FCD /* Project object */;
 }

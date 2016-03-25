@@ -20,7 +20,7 @@
 
 @implementation MBCoreDataStack
 
-+ (instancetype)sharedPersistenceController {
++ (instancetype)sharedManager {
     static MBCoreDataStack *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -44,7 +44,7 @@
     if (self.mainContext) {
         return;
     }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"MBModel"
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"MBPin"
                                               withExtension:@"momd"];
     NSManagedObjectModel *mom = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     NSAssert(mom, @"%@: %@ No model to generate a store from",[self class], NSStringFromSelector(_cmd));
@@ -69,7 +69,7 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSURL *documentsURL = [[fileManager URLsForDirectory:NSDocumentDirectory
                                                inDomains:NSUserDomainMask] lastObject];
-    NSURL *storeURL = [documentsURL URLByAppendingPathComponent:@"MBModel.sqlite"];
+    NSURL *storeURL = [documentsURL URLByAppendingPathComponent:@"MBPin.sqlite"];
     NSError *error = nil;
     NSAssert([psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil
                                          URL:storeURL

@@ -8,6 +8,7 @@
 
 @import MapKit;
 @import CoreLocation;
+@import CoreData;
 #import "MBMapViewController.h"
 #import "MBPin.h"
 #import "WYPopoverController.h"
@@ -16,19 +17,21 @@
 #import "MBNearbyPlacesViewController.h"
 #import "MBButtonsViewController.h"
 #import "MBStoryboardConstants.h"
+#import "MBCoreDataStack.h"
+#import "NSManagedObjectContext+MBSave.h"
 
 NSString *const kRoute   = @"Route";
 NSString *const kClean   = @"Clean Route";
 NSString *const kUnnamed = @"Unnamed";
 
-@interface MBMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, WYPopoverControllerDelegate>
+@interface MBMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, WYPopoverControllerDelegate, NSFetchedResultsControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (strong, nonatomic) NSMutableArray *bookmarks;
 @property (strong, nonatomic) WYPopoverController *popover;
 @property (weak, nonatomic) MBPin *transitPin;
 @property (strong, nonatomic) MKDirections *directions;
+@property (strong, nonatomic)NSFetchedResultsController *fetchResults;
 
 @end
 
@@ -37,6 +40,8 @@ NSString *const kUnnamed = @"Unnamed";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.fetchResults = [MBPin fetchedResultsFromStore];
+    [self.fetchResults performFetch:nil];
     self.locationManager = [CLLocationManager new];
     self.locationManager.delegate = self;
     [self.locationManager requestAlwaysAuthorization];
@@ -44,7 +49,7 @@ NSString *const kUnnamed = @"Unnamed";
         [self.locationManager requestAlwaysAuthorization];
     }
     [self.locationManager startUpdatingLocation];
-    self.bookmarks = [NSMutableArray new];
+    [self.mapView addAnnotations:self.fetchResults.fetchedObjects];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -95,12 +100,16 @@ NSString *const kUnnamed = @"Unnamed";
     self.popover = nil;
 }
 
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    NSLog(@"LookAtMe");
+}
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:toMBBookmarksVC]) {
         MBBookmarksTableViewController *bookmarksVC = [segue destinationViewController];
-        bookmarksVC.bookmarks = self.bookmarks;
+        bookmarksVC.bookmarks = self.fetchResults.fetchedObjects;
     } else if ([segue.identifier isEqualToString:toMBNearbyVCFromPin]) {
         MBNearbyPlacesViewController *nearVC = [segue destinationViewController];
         nearVC.pin = self.transitPin;
@@ -159,7 +168,8 @@ NSString *const kUnnamed = @"Unnamed";
     if (sender.state == UIGestureRecognizerStateEnded) {
         return;
     } else {
-        MBPin *pin = [MBPin new];
+        NSManagedObjectContext *context = [MBCoreDataStack sharedManager].mainContext;
+        MBPin *pin = [NSEntityDescription insertNewObjectForEntityForName:@"MBPin" inManagedObjectContext:context];
         __weak MBPin *weakPin = pin;
         CGPoint touchPoint = [sender locationInView:self.mapView];
         CLLocationCoordinate2D location = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
@@ -173,8 +183,8 @@ NSString *const kUnnamed = @"Unnamed";
             [self performSegueWithIdentifier:toMBNearbyVCFromPin sender:self];
             }
         };
-        [self.bookmarks addObject:pin];
         [self.mapView addAnnotation:pin];
+        [context saveContext];
     }
 }
 
@@ -188,12 +198,11 @@ NSString *const kUnnamed = @"Unnamed";
             }
         }
         sender.title = kRoute;
-        [self.mapView addAnnotations:self.bookmarks];
     } else {
         MBRouteViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:IDMBContentViewController];
         controller.preferredContentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height /2);
         controller.modalInPopover = NO;
-        controller.pins = [self.bookmarks copy];
+        controller.pins = self.fetchResults.fetchedObjects;
         controller.drawRouteBlock = ^(MBPin *pin) {
             [self showRouteFromUserTo:pin];
             [self.popover dismissPopoverAnimated:YES];

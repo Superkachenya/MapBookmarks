@@ -14,6 +14,6 @@
 @property (strong, readonly) NSManagedObjectContext *mainContext;
 @property (strong, readonly) NSManagedObjectContext *workerContext;
 
-+ (instancetype)sharedPersistenceController;
++ (instancetype)sharedManager;
 
 @end
