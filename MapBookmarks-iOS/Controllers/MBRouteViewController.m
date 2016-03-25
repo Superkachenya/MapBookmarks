@@ -6,16 +6,17 @@
 //  Copyright © 2016 Cleveroad. All rights reserved.
 //
 
-#import "MBContentPopoverViewController.h"
+#import "MBRouteViewController.h"
 #import "MBPin.h"
+#import "MBStoryboardConstants.h"
 
-@interface MBContentPopoverViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface MBRouteViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
-@implementation MBContentPopoverViewController
+@implementation MBRouteViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,7 +35,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kMBPinsOnScreenCellIdentifier];
     MBPin *pin = self.pins[indexPath.row];
     cell.textLabel.text = pin.title;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%f, %f", pin.coordinate.latitude, pin.coordinate.longitude];

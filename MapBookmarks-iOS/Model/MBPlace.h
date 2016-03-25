@@ -11,7 +11,6 @@
 @interface MBPlace : NSObject
 
 @property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSString *placeDescription;
 @property (assign, nonatomic) double latitude;
 @property (assign, nonatomic) double longitude;
 

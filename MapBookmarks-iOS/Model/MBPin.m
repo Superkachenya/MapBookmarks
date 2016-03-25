@@ -7,6 +7,7 @@
 //
 
 #import "MBPin.h"
+#import "MBPlace.h"
 
 @implementation MBPin
 
@@ -24,7 +25,13 @@
 }
 
 - (void)didTapButton:(id)sender {
-    NSLog(@"Success!!!");
+    self.detailButton();
+}
+
+- (void)updatePinWithPlace:(MBPlace *)place {
+    self.title = place.title;
+    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(place.latitude, place.longitude);
+    self.coordinate = location;
 }
 
 @end

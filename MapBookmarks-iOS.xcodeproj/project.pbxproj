@@ -21,7 +21,10 @@
 		8E1797DD1CA2DA8900206FCD /* MBNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797DC1CA2DA8900206FCD /* MBNetworkManager.m */; };
 		8E1797E11CA2F17100206FCD /* MBBookmarksTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797E01CA2F17100206FCD /* MBBookmarksTableViewController.m */; };
 		8E1797E91CA30A6D00206FCD /* MBPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797E81CA30A6D00206FCD /* MBPlace.m */; };
-		8EB57D581CA3F27A00CB2568 /* MBContentPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB57D571CA3F27A00CB2568 /* MBContentPopoverViewController.m */; };
+		8EB57D581CA3F27A00CB2568 /* MBRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB57D571CA3F27A00CB2568 /* MBRouteViewController.m */; };
+		8EE20F761CA5333100DF560A /* MBButtonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE20F751CA5333100DF560A /* MBButtonsViewController.m */; };
+		8EE20F791CA53AC200DF560A /* MBNearbyPlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE20F781CA53AC200DF560A /* MBNearbyPlacesViewController.m */; };
+		8EE20F7C1CA5407400DF560A /* MBStoryboardConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE20F7B1CA5407400DF560A /* MBStoryboardConstants.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,8 +63,14 @@
 		8E1797E01CA2F17100206FCD /* MBBookmarksTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBBookmarksTableViewController.m; path = Controllers/MBBookmarksTableViewController.m; sourceTree = "<group>"; };
 		8E1797E71CA30A6D00206FCD /* MBPlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBPlace.h; path = Model/MBPlace.h; sourceTree = "<group>"; };
 		8E1797E81CA30A6D00206FCD /* MBPlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBPlace.m; path = Model/MBPlace.m; sourceTree = "<group>"; };
-		8EB57D561CA3F27A00CB2568 /* MBContentPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBContentPopoverViewController.h; path = Controllers/MBContentPopoverViewController.h; sourceTree = "<group>"; };
-		8EB57D571CA3F27A00CB2568 /* MBContentPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBContentPopoverViewController.m; path = Controllers/MBContentPopoverViewController.m; sourceTree = "<group>"; };
+		8EB57D561CA3F27A00CB2568 /* MBRouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBRouteViewController.h; path = Controllers/MBRouteViewController.h; sourceTree = "<group>"; };
+		8EB57D571CA3F27A00CB2568 /* MBRouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBRouteViewController.m; path = Controllers/MBRouteViewController.m; sourceTree = "<group>"; };
+		8EE20F741CA5333100DF560A /* MBButtonsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBButtonsViewController.h; path = Controllers/MBButtonsViewController.h; sourceTree = "<group>"; };
+		8EE20F751CA5333100DF560A /* MBButtonsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBButtonsViewController.m; path = Controllers/MBButtonsViewController.m; sourceTree = "<group>"; };
+		8EE20F771CA53AC200DF560A /* MBNearbyPlacesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBNearbyPlacesViewController.h; path = Controllers/MBNearbyPlacesViewController.h; sourceTree = "<group>"; };
+		8EE20F781CA53AC200DF560A /* MBNearbyPlacesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBNearbyPlacesViewController.m; path = Controllers/MBNearbyPlacesViewController.m; sourceTree = "<group>"; };
+		8EE20F7A1CA5407400DF560A /* MBStoryboardConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBStoryboardConstants.h; path = Controllers/StoryboardSegues/MBStoryboardConstants.h; sourceTree = "<group>"; };
+		8EE20F7B1CA5407400DF560A /* MBStoryboardConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBStoryboardConstants.m; path = Controllers/StoryboardSegues/MBStoryboardConstants.m; sourceTree = "<group>"; };
 		A2DADB760B1262E4A89EAC4D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B69A5E76DF02F78D07EF5A69 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -182,11 +191,15 @@
 		8E1797DA1CA2DA4900206FCD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8EE20F7D1CA5407900DF560A /* StoryboardConstants */,
 				8E1797B01CA2943300206FCD /* MBMapViewController.h */,
 				8E1797B11CA2943300206FCD /* MBMapViewController.m */,
-				8EB57D591CA44E2900CB2568 /* RouteInfo */,
-				8E1797DF1CA2F17100206FCD /* MBBookmarksTableViewController.h */,
-				8E1797E01CA2F17100206FCD /* MBBookmarksTableViewController.m */,
+				8EE20F731CA530C600DF560A /* Bookmarks */,
+				8EE20F741CA5333100DF560A /* MBButtonsViewController.h */,
+				8EE20F751CA5333100DF560A /* MBButtonsViewController.m */,
+				8EE20F771CA53AC200DF560A /* MBNearbyPlacesViewController.h */,
+				8EE20F781CA53AC200DF560A /* MBNearbyPlacesViewController.m */,
+				8EB57D591CA44E2900CB2568 /* Route */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -200,13 +213,31 @@
 			name = NetworkManager;
 			sourceTree = "<group>";
 		};
-		8EB57D591CA44E2900CB2568 /* RouteInfo */ = {
+		8EB57D591CA44E2900CB2568 /* Route */ = {
 			isa = PBXGroup;
 			children = (
-				8EB57D561CA3F27A00CB2568 /* MBContentPopoverViewController.h */,
-				8EB57D571CA3F27A00CB2568 /* MBContentPopoverViewController.m */,
+				8EB57D561CA3F27A00CB2568 /* MBRouteViewController.h */,
+				8EB57D571CA3F27A00CB2568 /* MBRouteViewController.m */,
 			);
-			name = RouteInfo;
+			name = Route;
+			sourceTree = "<group>";
+		};
+		8EE20F731CA530C600DF560A /* Bookmarks */ = {
+			isa = PBXGroup;
+			children = (
+				8E1797DF1CA2F17100206FCD /* MBBookmarksTableViewController.h */,
+				8E1797E01CA2F17100206FCD /* MBBookmarksTableViewController.m */,
+			);
+			name = Bookmarks;
+			sourceTree = "<group>";
+		};
+		8EE20F7D1CA5407900DF560A /* StoryboardConstants */ = {
+			isa = PBXGroup;
+			children = (
+				8EE20F7A1CA5407400DF560A /* MBStoryboardConstants.h */,
+				8EE20F7B1CA5407400DF560A /* MBStoryboardConstants.m */,
+			);
+			name = StoryboardConstants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -362,14 +393,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E1797E91CA30A6D00206FCD /* MBPlace.m in Sources */,
-				8EB57D581CA3F27A00CB2568 /* MBContentPopoverViewController.m in Sources */,
+				8EE20F761CA5333100DF560A /* MBButtonsViewController.m in Sources */,
+				8EB57D581CA3F27A00CB2568 /* MBRouteViewController.m in Sources */,
 				8E1797E11CA2F17100206FCD /* MBBookmarksTableViewController.m in Sources */,
 				8E1797B21CA2943300206FCD /* MBMapViewController.m in Sources */,
 				8E1797DD1CA2DA8900206FCD /* MBNetworkManager.m in Sources */,
 				8E1797AF1CA2943300206FCD /* AppDelegate.m in Sources */,
 				8E1797D31CA296F000206FCD /* MBCoreDataStack.m in Sources */,
 				8E1797AC1CA2943300206FCD /* main.m in Sources */,
+				8EE20F791CA53AC200DF560A /* MBNearbyPlacesViewController.m in Sources */,
 				8E1797D81CA2B26C00206FCD /* MBPin.m in Sources */,
+				8EE20F7C1CA5407400DF560A /* MBStoryboardConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,14 +9,16 @@
 #import "MBNetworkManager.h"
 #import <AFNetworking/AFNetworking.h>
 #import "MBPlace.h"
-
+#import "MBPin.h"
 
 NSString *const baseURL = @"https://api.foursquare.com/v2/venues/search?ll=";
+NSString *const token = @"&oauth_token=A5ZDWL2DLXPZCQ3ZJESVOAKDMPQHSNNVWC3UMVOUOXPQHWRT&v=20121105";
 @implementation MBNetworkManager
 
-+ (void)downloadNearbyPlacesUsingLatitude:(double)latitude andLongitude:(double)longitude {
++ (void)downloadNearbyPlacesUsingPin:(MBPin *)pin completion:(MBCompletionDownload)block {
+    MBCompletionDownload copyBlock = [block copy];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    NSString *string = [NSString stringWithFormat:@"%@%f,%f&limit=10&oauth_token=A5ZDWL2DLXPZCQ3ZJESVOAKDMPQHSNNVWC3UMVOUOXPQHWRT&v=20121105",baseURL, latitude, longitude];
+    NSString *string = [NSString stringWithFormat:@"%@%f,%f&limit=10%@",baseURL, pin.coordinate.latitude, pin.coordinate.longitude, token];
     [manager GET:string
       parameters:nil
         progress:nil
@@ -28,7 +30,7 @@ NSString *const baseURL = @"https://api.foursquare.com/v2/venues/search?ll=";
                  [newPlace getPlace:place];
                  [places addObject:newPlace];
              }
-             
+             copyBlock(places);
          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
              NSLog(@"%@", error.localizedDescription);
              

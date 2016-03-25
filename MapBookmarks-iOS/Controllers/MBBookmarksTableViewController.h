@@ -10,4 +10,6 @@
 
 @interface MBBookmarksTableViewController : UIViewController <UITabBarDelegate, UITableViewDataSource>
 
+@property (strong, nonatomic) NSArray *bookmarks;
+
 @end

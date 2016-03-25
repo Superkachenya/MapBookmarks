@@ -13,8 +13,9 @@
 
 @property (copy, nonatomic) NSString *title;
 @property (assign, nonatomic) CLLocationCoordinate2D coordinate;
-@property (strong, nonatomic) MBPlace *localPlace;
+@property (copy, nonatomic) void(^detailButton)();
 
 - (MKAnnotationView *)annotationView;
+- (void)updatePinWithPlace:(MBPlace *)place;
 
 @end

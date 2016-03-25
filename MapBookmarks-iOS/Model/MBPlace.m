@@ -12,7 +12,6 @@
 
 - (void)getPlace:(id)place {
     self.title = [place valueForKey:@"name"];
-    self.placeDescription = [place valueForKeyPath:@"categories.name"];
     NSNumber *lat = [place valueForKeyPath:@"location.lat"];
     NSNumber *lng = [place valueForKeyPath:@"location.lng"];
     self.latitude = [lat doubleValue];

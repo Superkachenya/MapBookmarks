@@ -6,13 +6,20 @@
 //  Copyright © 2016 Cleveroad. All rights reserved.
 //
 
-#import "MBMapViewController.h"
-#import "MBNetworkManager.h"
 @import MapKit;
 @import CoreLocation;
+#import "MBMapViewController.h"
 #import "MBPin.h"
 #import "WYPopoverController.h"
-#import "MBContentPopoverViewController.h"
+#import "MBRouteViewController.h"
+#import "MBBookmarksTableViewController.h"
+#import "MBNearbyPlacesViewController.h"
+#import "MBButtonsViewController.h"
+#import "MBStoryboardConstants.h"
+
+NSString *const kRoute   = @"Route";
+NSString *const kClean   = @"Clean Route";
+NSString *const kUnnamed = @"Unnamed";
 
 @interface MBMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, WYPopoverControllerDelegate>
 
@@ -20,7 +27,8 @@
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) NSMutableArray *bookmarks;
 @property (strong, nonatomic) WYPopoverController *popover;
-
+@property (weak, nonatomic) MBPin *transitPin;
+@property (strong, nonatomic) MKDirections *directions;
 
 @end
 
@@ -69,20 +77,9 @@
     }
 }
 
-#pragma mark - Draw route methods
-
-- (void)showRouteFromUserTo:(MBPin *)pin {
-    [self.mapView removeOverlays:self.mapView.overlays];
-    CLLocationCoordinate2D coordinateArray[2];
-    coordinateArray[0] = self.mapView.userLocation.coordinate;
-    coordinateArray[1] = pin.coordinate;
-    MKPolyline *polyline = [MKPolyline polylineWithCoordinates:coordinateArray count:2];
-    [self.mapView addOverlay:polyline];
-}
-
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id < MKOverlay >)overlay {
     MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithOverlay:overlay];
-    renderer.strokeColor = [UIColor purpleColor];
+    renderer.strokeColor = [UIColor orangeColor];
     renderer.lineWidth = 5.0;
     return renderer;
 }
@@ -98,6 +95,64 @@
     self.popover = nil;
 }
 
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:toMBBookmarksVC]) {
+        MBBookmarksTableViewController *bookmarksVC = [segue destinationViewController];
+        bookmarksVC.bookmarks = self.bookmarks;
+    } else if ([segue.identifier isEqualToString:toMBNearbyVCFromPin]) {
+        MBNearbyPlacesViewController *nearVC = [segue destinationViewController];
+        nearVC.pin = self.transitPin;
+    } else if ([segue.identifier isEqualToString:toMBButtonsVCFromPin]) {
+        MBButtonsViewController *buttonsVC = [segue destinationViewController];
+        buttonsVC.pin = self.transitPin;
+    }
+}
+
+#pragma mark - Draw route
+
+- (void)showRouteFromUserTo:(MBPin *)pin {
+        if (!pin) {
+            return;
+        }
+        if ([self.directions isCalculating]) {
+            [self.directions cancel];
+        }
+        CLLocationDegrees latitude = pin.coordinate.latitude;
+        CLLocationDegrees longitude = pin.coordinate.longitude;
+        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+        for (id<MKAnnotation> annotation in self.mapView.annotations) {
+            if ([annotation isKindOfClass:[MBPin class]] && annotation.coordinate.latitude != coordinate.latitude) {
+                MKAnnotationView* anView = [self.mapView viewForAnnotation: annotation];
+                anView.hidden = YES;
+            }
+        }
+        MKDirectionsRequest* request = [[MKDirectionsRequest alloc] init];
+        request.source = [MKMapItem mapItemForCurrentLocation];
+        MKPlacemark* placemark = [[MKPlacemark alloc] initWithCoordinate:coordinate
+                                                       addressDictionary:nil];
+        MKMapItem* destination = [[MKMapItem alloc] initWithPlacemark:placemark];
+        request.destination = destination;
+        request.transportType = MKDirectionsTransportTypeWalking;
+        request.requestsAlternateRoutes = NO;
+        self.directions = [[MKDirections alloc] initWithRequest:request];
+        [self.directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
+            if (error) {
+                //[self showAlertWithTitle:@"Error" andMessage:[error localizedDescription]];
+            } else if ([response.routes count] == 0) {
+                //[self showAlertWithTitle:@"Error" andMessage:@"No routes found"];
+            } else {
+                [self.mapView removeOverlays:[self.mapView overlays]];
+                NSMutableArray* array = [NSMutableArray array];
+                for (MKRoute* route in response.routes) {
+                    [array addObject:route.polyline];
+                }
+                [self.mapView addOverlays:array level:MKOverlayLevelAboveRoads];
+            }
+        }];
+}
+
 #pragma mark - HandleEvents
 
 - (IBAction)userDidAddPin:(UILongPressGestureRecognizer *)sender {
@@ -105,37 +160,52 @@
         return;
     } else {
         MBPin *pin = [MBPin new];
+        __weak MBPin *weakPin = pin;
         CGPoint touchPoint = [sender locationInView:self.mapView];
         CLLocationCoordinate2D location = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+        pin.title = kUnnamed;
         pin.coordinate = location;
+        pin.detailButton = ^{
+            self.transitPin = weakPin;
+            if (![self.transitPin.title isEqualToString:kUnnamed]) {
+                [self performSegueWithIdentifier:toMBButtonsVCFromPin sender:self];
+            } else {
+            [self performSegueWithIdentifier:toMBNearbyVCFromPin sender:self];
+            }
+        };
         [self.bookmarks addObject:pin];
-        [MBNetworkManager downloadNearbyPlacesUsingLatitude:pin.coordinate.latitude andLongitude:pin.coordinate.longitude];
         [self.mapView addAnnotation:pin];
     }
 }
 
 - (IBAction)routeButtonDidTap:(UIBarButtonItem *)sender {
-    if ([sender.title isEqualToString:@"Clear"]) {
+    if ([sender.title isEqualToString:kClean]) {
         [self.mapView removeOverlays:self.mapView.overlays];
-        sender.title = @"Route";
+        for (id<MKAnnotation> annotation in self.mapView.annotations) {
+            if ([annotation isKindOfClass:[MBPin class]]) {
+                MKAnnotationView* anView = [self.mapView viewForAnnotation: annotation];
+                anView.hidden = NO;
+            }
+        }
+        sender.title = kRoute;
         [self.mapView addAnnotations:self.bookmarks];
     } else {
-    MBContentPopoverViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"MBContentViewController"];
-    controller.preferredContentSize = CGSizeMake(self.view.bounds.size.width /2, self.view.bounds.size.height /2);
-    controller.modalInPopover = NO;
-    controller.pins = [self.bookmarks copy];
-    controller.drawRouteBlock = ^(MBPin *pin) {
-        [self showRouteFromUserTo:pin];
-        [self.popover dismissPopoverAnimated:YES];
-        sender.title = @"Clear";
-    };
-    self.popover = [[WYPopoverController alloc] initWithContentViewController:controller];
-    self.popover.delegate = self;
-    self.popover.popoverLayoutMargins = UIEdgeInsetsMake(10, 10, 10, 10);
-    self.popover.wantsDefaultContentAppearance = NO;
-    [self.popover presentPopoverFromBarButtonItem:sender
-                         permittedArrowDirections:WYPopoverArrowDirectionDown
-                                         animated:YES];
+        MBRouteViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:IDMBContentViewController];
+        controller.preferredContentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height /2);
+        controller.modalInPopover = NO;
+        controller.pins = [self.bookmarks copy];
+        controller.drawRouteBlock = ^(MBPin *pin) {
+            [self showRouteFromUserTo:pin];
+            [self.popover dismissPopoverAnimated:YES];
+            sender.title = kClean;
+        };
+        self.popover = [[WYPopoverController alloc] initWithContentViewController:controller];
+        self.popover.delegate = self;
+        self.popover.popoverLayoutMargins = UIEdgeInsetsMake(10, 10, 10, 10);
+        self.popover.wantsDefaultContentAppearance = NO;
+        [self.popover presentPopoverFromBarButtonItem:sender
+                             permittedArrowDirections:WYPopoverArrowDirectionDown
+                                             animated:YES];
     }
 }
 
