@@ -41,7 +41,7 @@ NSString *const kUnnamed = @"Unnamed";
     [super viewDidLoad];
     
     self.fetchResults = [MBPin fetchedResultsFromStore];
-    [self.fetchResults performFetch:nil];
+    self.fetchResults.delegate = self;
     self.locationManager = [CLLocationManager new];
     self.locationManager.delegate = self;
     [self.locationManager requestAlwaysAuthorization];
@@ -64,22 +64,37 @@ NSString *const kUnnamed = @"Unnamed";
                                                      fromEyeCoordinate:CLLocationCoordinate2DMake(userLocation.coordinate.latitude,
                                                                                                   userLocation.coordinate.longitude)
                                                            eyeAltitude:kCLLocationAccuracyKilometer];
-    [self.mapView setCamera:camera];
+    [self.mapView setCamera:camera animated:YES];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     if ([annotation isKindOfClass:[MBPin class]]) {
+        static NSString* identifier = @"Annotation";
         MBPin *myPin = (MBPin *)annotation;
-        MKAnnotationView *annotationView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:@"MBPin"];
-        if (!annotationView) {
-            annotationView = [myPin annotationView];
-        } else {
-            annotationView.annotation = annotation;
-        }
+        MKPinAnnotationView* annotationView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:myPin reuseIdentifier:identifier];
+        annotationView.pinTintColor = [MKPinAnnotationView greenPinColor];
+        annotationView.animatesDrop = YES;
+        annotationView.canShowCallout = YES;
+        annotationView.draggable = YES;
+        
+        UIButton* descriptionButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        [descriptionButton addTarget:self action:@selector(detailButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
+        annotationView.rightCalloutAccessoryView = descriptionButton;
         return annotationView;
     } else {
         return nil;
     }
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState
+   fromOldState:(MKAnnotationViewDragState)oldState {
+    if (newState == MKAnnotationViewDragStateEnding) {
+        CLLocationCoordinate2D location = view.annotation.coordinate;
+        MKMapPoint point = MKMapPointForCoordinate(location);
+        NSLog(@"\nlocation = {%f, %f}\npoint = %@", location.latitude, location.longitude, MKStringFromMapPoint(point));
+    }
+    
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id < MKOverlay >)overlay {
@@ -100,17 +115,17 @@ NSString *const kUnnamed = @"Unnamed";
     self.popover = nil;
 }
 
+#pragma mark - NSFetchedResultsControllerDelegate
+
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    NSLog(@"LookAtMe");
+    [self.mapView addAnnotations:self.fetchResults.fetchedObjects];
 }
+
 
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:toMBBookmarksVC]) {
-        MBBookmarksTableViewController *bookmarksVC = [segue destinationViewController];
-        bookmarksVC.bookmarks = self.fetchResults.fetchedObjects;
-    } else if ([segue.identifier isEqualToString:toMBNearbyVCFromPin]) {
+    if ([segue.identifier isEqualToString:toMBNearbyVCFromPin]) {
         MBNearbyPlacesViewController *nearVC = [segue destinationViewController];
         nearVC.pin = self.transitPin;
     } else if ([segue.identifier isEqualToString:toMBButtonsVCFromPin]) {
@@ -122,44 +137,44 @@ NSString *const kUnnamed = @"Unnamed";
 #pragma mark - Draw route
 
 - (void)showRouteFromUserTo:(MBPin *)pin {
-        if (!pin) {
-            return;
+    if (!pin) {
+        return;
+    }
+    if ([self.directions isCalculating]) {
+        [self.directions cancel];
+    }
+    CLLocationDegrees latitude = pin.coordinate.latitude;
+    CLLocationDegrees longitude = pin.coordinate.longitude;
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+    for (id<MKAnnotation> annotation in self.mapView.annotations) {
+        if ([annotation isKindOfClass:[MBPin class]] && annotation.coordinate.latitude != coordinate.latitude) {
+            MKAnnotationView* anView = [self.mapView viewForAnnotation: annotation];
+            anView.hidden = YES;
         }
-        if ([self.directions isCalculating]) {
-            [self.directions cancel];
-        }
-        CLLocationDegrees latitude = pin.coordinate.latitude;
-        CLLocationDegrees longitude = pin.coordinate.longitude;
-        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-        for (id<MKAnnotation> annotation in self.mapView.annotations) {
-            if ([annotation isKindOfClass:[MBPin class]] && annotation.coordinate.latitude != coordinate.latitude) {
-                MKAnnotationView* anView = [self.mapView viewForAnnotation: annotation];
-                anView.hidden = YES;
+    }
+    MKDirectionsRequest* request = [[MKDirectionsRequest alloc] init];
+    request.source = [MKMapItem mapItemForCurrentLocation];
+    MKPlacemark* placemark = [[MKPlacemark alloc] initWithCoordinate:coordinate
+                                                   addressDictionary:nil];
+    MKMapItem* destination = [[MKMapItem alloc] initWithPlacemark:placemark];
+    request.destination = destination;
+    request.transportType = MKDirectionsTransportTypeWalking;
+    request.requestsAlternateRoutes = NO;
+    self.directions = [[MKDirections alloc] initWithRequest:request];
+    [self.directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
+        if (error) {
+            //[self showAlertWithTitle:@"Error" andMessage:[error localizedDescription]];
+        } else if ([response.routes count] == 0) {
+            //[self showAlertWithTitle:@"Error" andMessage:@"No routes found"];
+        } else {
+            [self.mapView removeOverlays:[self.mapView overlays]];
+            NSMutableArray* array = [NSMutableArray array];
+            for (MKRoute* route in response.routes) {
+                [array addObject:route.polyline];
             }
+            [self.mapView addOverlays:array level:MKOverlayLevelAboveRoads];
         }
-        MKDirectionsRequest* request = [[MKDirectionsRequest alloc] init];
-        request.source = [MKMapItem mapItemForCurrentLocation];
-        MKPlacemark* placemark = [[MKPlacemark alloc] initWithCoordinate:coordinate
-                                                       addressDictionary:nil];
-        MKMapItem* destination = [[MKMapItem alloc] initWithPlacemark:placemark];
-        request.destination = destination;
-        request.transportType = MKDirectionsTransportTypeWalking;
-        request.requestsAlternateRoutes = NO;
-        self.directions = [[MKDirections alloc] initWithRequest:request];
-        [self.directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
-            if (error) {
-                //[self showAlertWithTitle:@"Error" andMessage:[error localizedDescription]];
-            } else if ([response.routes count] == 0) {
-                //[self showAlertWithTitle:@"Error" andMessage:@"No routes found"];
-            } else {
-                [self.mapView removeOverlays:[self.mapView overlays]];
-                NSMutableArray* array = [NSMutableArray array];
-                for (MKRoute* route in response.routes) {
-                    [array addObject:route.polyline];
-                }
-                [self.mapView addOverlays:array level:MKOverlayLevelAboveRoads];
-            }
-        }];
+    }];
 }
 
 #pragma mark - HandleEvents
@@ -169,20 +184,13 @@ NSString *const kUnnamed = @"Unnamed";
         return;
     } else {
         NSManagedObjectContext *context = [MBCoreDataStack sharedManager].mainContext;
-        MBPin *pin = [NSEntityDescription insertNewObjectForEntityForName:@"MBPin" inManagedObjectContext:context];
-        __weak MBPin *weakPin = pin;
+        MBPin *pin = [NSEntityDescription insertNewObjectForEntityForName:@"MBPin"
+                                                   inManagedObjectContext:context];
         CGPoint touchPoint = [sender locationInView:self.mapView];
-        CLLocationCoordinate2D location = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+        CLLocationCoordinate2D location = [self.mapView convertPoint:touchPoint
+                                                toCoordinateFromView:self.mapView];
         pin.title = kUnnamed;
         pin.coordinate = location;
-        pin.detailButton = ^{
-            self.transitPin = weakPin;
-            if (![self.transitPin.title isEqualToString:kUnnamed]) {
-                [self performSegueWithIdentifier:toMBButtonsVCFromPin sender:self];
-            } else {
-            [self performSegueWithIdentifier:toMBNearbyVCFromPin sender:self];
-            }
-        };
         [self.mapView addAnnotation:pin];
         [context saveContext];
     }
@@ -202,7 +210,6 @@ NSString *const kUnnamed = @"Unnamed";
         MBRouteViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:IDMBContentViewController];
         controller.preferredContentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height /2);
         controller.modalInPopover = NO;
-        controller.pins = self.fetchResults.fetchedObjects;
         controller.drawRouteBlock = ^(MBPin *pin) {
             [self showRouteFromUserTo:pin];
             [self.popover dismissPopoverAnimated:YES];
@@ -215,6 +222,14 @@ NSString *const kUnnamed = @"Unnamed";
         [self.popover presentPopoverFromBarButtonItem:sender
                              permittedArrowDirections:WYPopoverArrowDirectionDown
                                              animated:YES];
+    }
+}
+
+- (void)detailButtonDidPress:(UIButton *)sender {
+    if ([self.transitPin.title isEqualToString:kUnnamed]) {
+        [self performSegueWithIdentifier:toMBNearbyVCFromPin sender:self];
+    } else {
+        [self performSegueWithIdentifier:toMBButtonsVCFromPin sender:self];
     }
 }
 

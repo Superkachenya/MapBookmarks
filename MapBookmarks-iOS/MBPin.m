@@ -11,7 +11,7 @@
 #import "MBCoreDataStack.h"
 
 @implementation MBPin
-@synthesize coordinate = _coordinate, detailButton = _detailButton;
+@synthesize coordinate = _coordinate;
 
 - (CLLocationCoordinate2D)coordinate {
    _coordinate = CLLocationCoordinate2DMake(self.latitude.doubleValue, self.longitude.doubleValue);
@@ -22,31 +22,6 @@
     self.latitude = @(newCoordinate.latitude);
     self.longitude = @(newCoordinate.longitude);
     _coordinate = newCoordinate;
-}
-
-- (void (^)())detailButton {
-    return _detailButton;
-}
-
-- (void)setDetailButton:(void (^)())detailButton {
-    _detailButton = detailButton;
-}
-
-- (MKAnnotationView *)annotationView {
-    MKAnnotationView *annotationView = [[MKAnnotationView alloc] initWithAnnotation:self reuseIdentifier:@"MBPin"];
-    annotationView.enabled = YES;
-    annotationView.canShowCallout = YES;
-    annotationView.draggable = YES;
-    annotationView.image = [UIImage imageNamed:@"pin"];
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    [button addTarget:self action:@selector(didTapButton:) forControlEvents:UIControlEventTouchUpInside];
-    annotationView.rightCalloutAccessoryView = button;
-    
-    return annotationView;
-}
-
-- (void)didTapButton:(id)sender {
-    self.detailButton();
 }
 
 - (void)updatePinWithPlace:(MBPlace *)place {
@@ -64,6 +39,8 @@
                                                                              managedObjectContext:context
                                                                                sectionNameKeyPath:nil
                                                                                         cacheName:nil];
+    NSError *error = nil;
+    [results performFetch:&error];
     return results;
 }
 

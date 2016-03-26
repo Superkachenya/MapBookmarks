@@ -60,7 +60,7 @@
             </objects>
             <point key="canvasLocation" x="-446" y="672"/>
         </scene>
-        <!--Bookmarks Table View Controller-->
+        <!--Bookmarks-->
         <scene sceneID="amn-OV-6CE">
             <objects>
                 <viewController id="Plr-fF-Xrr" customClass="MBBookmarksTableViewController" sceneMemberID="viewController">
@@ -118,15 +118,22 @@
                             <constraint firstAttribute="trailing" secondItem="iFh-Ok-4ae" secondAttribute="trailing" id="qU2-fQ-GTE"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Bookmarks" id="a33-9S-bl6">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="XJR-Yb-8bp">
+                            <connections>
+                                <action selector="editButtonDidPress:" destination="Plr-fF-Xrr" id="w0P-SI-zVE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="iFh-Ok-4ae" id="YFL-fU-xRc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9x9-B6-X6q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-63" y="114"/>
+            <point key="canvasLocation" x="95" y="104"/>
         </scene>
-        <!--Buttons View Controller-->
+        <!--Details-->
         <scene sceneID="DbL-Jt-kdU">
             <objects>
                 <viewController storyboardIdentifier="MBButtonsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4v4-kD-BTS" customClass="MBButtonsViewController" sceneMemberID="viewController">
@@ -138,14 +145,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Skg-sG-fl7">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="i3C-se-DXu">
                                 <rect key="frame" x="93" y="239" width="134" height="90"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y3f-Yk-Nuv">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UUG-8d-l2M">
                                         <rect key="frame" x="0.0" y="0.0" width="134" height="30"/>
-                                        <state key="normal" title="Center in map"/>
+                                        <state key="normal" title="Draw route"/>
                                         <connections>
-                                            <action selector="centerButtonDidPress:" destination="4v4-kD-BTS" eventType="touchUpInside" id="hJa-z1-nYH"/>
+                                            <action selector="drawRouteDidPress:" destination="4v4-kD-BTS" eventType="touchUpInside" id="hGT-Y7-htM"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yec-q4-RMe">
@@ -155,27 +162,57 @@
                                             <segue destination="6aU-e5-yBh" kind="show" identifier="toMBNearbyPlacesVC" id="5tN-1O-hSp"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UUG-8d-l2M">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y3f-Yk-Nuv">
                                         <rect key="frame" x="0.0" y="60" width="134" height="30"/>
-                                        <state key="normal" title="Draw route"/>
+                                        <state key="normal" title="Center in map"/>
                                         <connections>
-                                            <action selector="drawRouteDidPress:" destination="4v4-kD-BTS" eventType="touchUpInside" id="hGT-Y7-htM"/>
+                                            <action selector="centerButtonDidPress:" destination="4v4-kD-BTS" eventType="touchUpInside" id="hJa-z1-nYH"/>
                                         </connections>
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hcv-Qd-eGf">
+                                <rect key="frame" x="20" y="148" width="280" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ueR-dc-13m">
+                                <rect key="frame" x="20" y="107" width="280" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Skg-sG-fl7" firstAttribute="centerX" secondItem="CHr-n8-abj" secondAttribute="centerX" id="Is1-BM-gWV"/>
-                            <constraint firstItem="Skg-sG-fl7" firstAttribute="centerY" secondItem="CHr-n8-abj" secondAttribute="centerY" id="Lsb-eb-HVm"/>
+                            <constraint firstAttribute="trailing" secondItem="hcv-Qd-eGf" secondAttribute="trailing" constant="20" id="748-Q8-AfK"/>
+                            <constraint firstItem="hcv-Qd-eGf" firstAttribute="leading" secondItem="CHr-n8-abj" secondAttribute="leading" constant="20" id="A03-8I-eFu"/>
+                            <constraint firstItem="i3C-se-DXu" firstAttribute="centerX" secondItem="CHr-n8-abj" secondAttribute="centerX" id="ERA-kz-kAA"/>
+                            <constraint firstItem="ueR-dc-13m" firstAttribute="top" secondItem="IFM-B6-CQy" secondAttribute="bottom" constant="43" id="MYl-1n-Rdu"/>
+                            <constraint firstItem="hcv-Qd-eGf" firstAttribute="top" secondItem="ueR-dc-13m" secondAttribute="bottom" constant="20" id="Wug-Wo-fU4"/>
+                            <constraint firstItem="i3C-se-DXu" firstAttribute="centerY" secondItem="CHr-n8-abj" secondAttribute="centerY" id="Yig-nv-UgM"/>
+                            <constraint firstAttribute="trailing" secondItem="ueR-dc-13m" secondAttribute="trailing" constant="20" id="bnP-5K-nKl"/>
+                            <constraint firstItem="ueR-dc-13m" firstAttribute="leading" secondItem="CHr-n8-abj" secondAttribute="leading" constant="20" id="txG-J0-jRN"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Details" id="DXd-Ig-4gH">
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="0PD-KM-uvt">
+                            <connections>
+                                <action selector="trashButtonDidPress:" destination="4v4-kD-BTS" id="nb3-nn-HIz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="TitleLabel" destination="ueR-dc-13m" id="ZBt-MQ-rW2"/>
+                        <outlet property="loadPlacesButton" destination="yec-q4-RMe" id="Bpz-ii-y3L"/>
+                        <outlet property="locationLabel" destination="hcv-Qd-eGf" id="sUE-7n-UNB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lsy-VK-to3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="503" y="919"/>
+            <point key="canvasLocation" x="-29" y="840"/>
         </scene>
         <!--Nearby places-->
         <scene sceneID="Coc-xs-f4h">
@@ -235,7 +272,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3iG-hx-S6s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="354" y="96"/>
+            <point key="canvasLocation" x="539" y="500"/>
         </scene>
         <!--Route View Controller-->
         <scene sceneID="X0D-fA-xvP">
@@ -299,7 +336,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZWS-0S-94L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="38" y="1206"/>
+            <point key="canvasLocation" x="-29" y="1519"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1cR-Le-KpP">
@@ -322,7 +359,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="5pL-dq-8wa"/>
         <segue reference="5tN-1O-hSp"/>
-        <segue reference="kre-dE-yh5"/>
     </inferredMetricsTieBreakers>
 </document>

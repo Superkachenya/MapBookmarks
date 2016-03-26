@@ -8,7 +8,7 @@
 
 @import UIKit;
 
-@interface MBBookmarksTableViewController : UIViewController <UITabBarDelegate, UITableViewDataSource>
+@interface MBBookmarksTableViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) NSArray *bookmarks;
 

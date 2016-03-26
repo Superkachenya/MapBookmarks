@@ -6,12 +6,11 @@
 //  Copyright © 2016 Cleveroad. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 @class MBPin;
 
 @interface MBRouteViewController : UIViewController
 
-@property (strong, nonatomic) NSArray *pins;
 @property (copy, nonatomic)void(^drawRouteBlock)(MBPin *pin);
 
 @end

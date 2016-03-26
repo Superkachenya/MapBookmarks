@@ -13,14 +13,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-
 @interface MBPin : NSManagedObject <MKAnnotation>
 
 @property (assign, nonatomic, readonly) CLLocationCoordinate2D coordinate;
-@property (copy, nonatomic) void(^detailButton)();
 
 + (NSFetchedResultsController *)fetchedResultsFromStore;
-- (MKAnnotationView *)annotationView;
 - (void)updatePinWithPlace:(MBPlace *)place;
 
 @end
