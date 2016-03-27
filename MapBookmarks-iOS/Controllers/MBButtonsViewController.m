@@ -25,12 +25,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if ([self.pin.title isEqualToString:@"Unnamed"]) {
-        [self.loadPlacesButton setHidden:YES];
-        [self performSegueWithIdentifier:toMBNearbyPlacesVC sender:self];
-    } else {
-        [self.loadPlacesButton setHidden:NO];
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -38,6 +32,12 @@
     
     self.TitleLabel.text = self.pin.title;
     self.locationLabel.text = [NSString stringWithFormat:@"%f, %f", self.pin.coordinate.latitude, self.pin.coordinate.longitude];
+    if ([self.pin.title isEqualToString:@"Unnamed"]) {
+        [self.loadPlacesButton setHidden:YES];
+        [self performSegueWithIdentifier:toMBNearbyPlacesVC sender:self];
+    } else {
+        [self.loadPlacesButton setHidden:NO];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,7 +68,7 @@
                                                handler:^(UIAlertAction * _Nonnull action) {
                                                    NSManagedObjectContext *context = [MBCoreDataStack sharedManager].mainContext;
                                                    [context deleteObject:self.pin];
-                                                   [self.navigationController popViewControllerAnimated:YES];
+                                                   [self performSegueWithIdentifier:unwindToBookmarksVC sender:self];
                                                    [context saveContext];
                                                }];
     [alert addAction:cancel];

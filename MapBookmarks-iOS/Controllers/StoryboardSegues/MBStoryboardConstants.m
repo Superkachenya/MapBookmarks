@@ -19,5 +19,7 @@ NSString *const toMBButtonsVCFromPin          = @"toMBButtonsVCFromPin";
 
 NSString *const unwindToMBButtonsFromNearbyVC = @"unwindToMBButtonsFromNearbyVC";
 NSString *const unwindToMapVC                 = @"unwindToMapVC";
+NSString *const unwindToBookmarksVC           = @"unwindToBookmarksVC";
+
 
 NSString *const IDMBContentViewController     = @"IDMBContentViewController";

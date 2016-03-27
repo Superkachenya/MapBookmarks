@@ -78,7 +78,6 @@ NSString *const kUnnamed = @"Unnamed";
         annotationView.pinTintColor = [MKPinAnnotationView greenPinColor];
         annotationView.animatesDrop = YES;
         annotationView.canShowCallout = YES;
-        annotationView.draggable = YES;
         
         UIButton* descriptionButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         [descriptionButton addTarget:self action:@selector(detailButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
@@ -87,16 +86,6 @@ NSString *const kUnnamed = @"Unnamed";
     } else {
         return nil;
     }
-}
-
-- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState
-   fromOldState:(MKAnnotationViewDragState)oldState {
-    if (newState == MKAnnotationViewDragStateEnding) {
-        CLLocationCoordinate2D location = view.annotation.coordinate;
-        MKMapPoint point = MKMapPointForCoordinate(location);
-        NSLog(@"\nlocation = {%f, %f}\npoint = %@", location.latitude, location.longitude, MKStringFromMapPoint(point));
-    }
-    
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id < MKOverlay >)overlay {
@@ -138,12 +127,18 @@ NSString *const kUnnamed = @"Unnamed";
         };
     }
 }
+
 - (IBAction)prepareForUnwindToMap:(UIStoryboardSegue *)segue {
     if (self.mapView.layer) {
         self.routeButton.title = kClean;
     }
 }
 #pragma mark - Draw route
+
+- (void)zoomToPolyLine:(MKMapView *)map polyline:(MKPolyline*)polyline animated: (BOOL)animated
+{
+    [map setVisibleMapRect:[polyline boundingMapRect] edgePadding:UIEdgeInsetsMake(25.0, 25.0, 25.0, 25.0) animated:animated];
+}
 
 - (void)showRouteFromUserTo:(MBPin *)pin {
     if (!pin) {
@@ -177,11 +172,9 @@ NSString *const kUnnamed = @"Unnamed";
             //[self showAlertWithTitle:@"Error" andMessage:@"No routes found"];
         } else {
             [self.mapView removeOverlays:[self.mapView overlays]];
-            NSMutableArray* array = [NSMutableArray array];
-            for (MKRoute* route in response.routes) {
-                [array addObject:route.polyline];
-            }
-            [self.mapView addOverlays:array level:MKOverlayLevelAboveRoads];
+            MKRoute *route = response.routes.firstObject;
+            [self.mapView addOverlays:@[route.polyline] level:MKOverlayLevelAboveLabels];
+            [self zoomToPolyLine:self.mapView polyline:route.polyline animated:YES];
         }
     }];
 }

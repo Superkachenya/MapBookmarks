@@ -210,6 +210,7 @@
                         <outlet property="TitleLabel" destination="ueR-dc-13m" id="ZBt-MQ-rW2"/>
                         <outlet property="loadPlacesButton" destination="yec-q4-RMe" id="Bpz-ii-y3L"/>
                         <outlet property="locationLabel" destination="hcv-Qd-eGf" id="sUE-7n-UNB"/>
+                        <segue destination="XBQ-fU-D92" kind="unwind" identifier="unwindToBookmarksVC" unwindAction="prepareForUnwindToBookmarks:" id="fUD-q5-bc5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lsy-VK-to3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -229,8 +230,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7UE-Gx-151">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7UE-Gx-151">
+                                <rect key="frame" x="124" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="kMBNearbyPlacesCellIdentifier" textLabel="GYl-K9-m0I" style="IBUITableViewCellStyleDefault" id="SRb-E8-KvO">
