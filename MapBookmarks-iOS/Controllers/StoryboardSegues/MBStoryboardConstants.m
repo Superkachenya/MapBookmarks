@@ -18,4 +18,6 @@ NSString *const toMBNearbyPlacesVC    = @"toMBNearbyPlacesVC";
 NSString *const toMBNearbyVCFromPin   = @"toMBNearbyVCFromPin";
 NSString *const toMBButtonsVCFromPin  = @"toMBButtonsVCFromPin";
 
+NSString *const unwindToMBButtonsFromNearbyVC = @"unwindToMBButtonsFromNearbyVC";
+
 NSString *const IDMBContentViewController = @"IDMBContentViewController";

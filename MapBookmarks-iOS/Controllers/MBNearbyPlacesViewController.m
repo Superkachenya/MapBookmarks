@@ -11,6 +11,7 @@
 #import "NSManagedObjectContext+MBSave.h"
 #import "MBNearbyPlacesViewController.h"
 #import "MBStoryboardConstants.h"
+#import "MBButtonsViewController.h"
 #import "MBPlace.h"
 #import "MBPin.h"
 #import "MBNetworkManager.h"
@@ -56,7 +57,7 @@
     [self.pin updatePinWithPlace:place];
     NSManagedObjectContext *context = [MBCoreDataStack sharedManager].mainContext;
     [context saveContext];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self performSegueWithIdentifier:unwindToMBButtonsFromNearbyVC sender:self];
 }
 
 @end

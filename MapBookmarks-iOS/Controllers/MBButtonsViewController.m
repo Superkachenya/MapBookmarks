@@ -78,4 +78,10 @@
     }
 }
 
+- (IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
+    if ([segue.identifier isEqualToString:unwindToMBButtonsFromNearbyVC]) {
+        MBNearbyPlacesViewController *placesVC = [segue sourceViewController];
+        self.pin = placesVC.pin;
+    }
+}
 @end

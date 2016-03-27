@@ -17,5 +17,6 @@ extern NSString *const toMBButtonsVC;
 extern NSString *const toMBNearbyPlacesVC;
 extern NSString *const toMBNearbyVCFromPin;
 extern NSString *const toMBButtonsVCFromPin;
+extern NSString *const unwindToMBButtonsFromNearbyVC;
 
 extern NSString *const IDMBContentViewController;
