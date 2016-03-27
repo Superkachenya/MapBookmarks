@@ -17,6 +17,7 @@
 #import "MBNearbyPlacesViewController.h"
 #import "MBButtonsViewController.h"
 #import "MBStoryboardConstants.h"
+#import "UIView+MKAnnotationView.h"
 #import "MBCoreDataStack.h"
 #import "NSManagedObjectContext+MBSave.h"
 
@@ -134,6 +135,8 @@ NSString *const kUnnamed = @"Unnamed";
     }
 }
 
+
+
 #pragma mark - Draw route
 
 - (void)showRouteFromUserTo:(MBPin *)pin {
@@ -226,6 +229,8 @@ NSString *const kUnnamed = @"Unnamed";
 }
 
 - (void)detailButtonDidPress:(UIButton *)sender {
+    MKAnnotationView *annotationView = [sender superAnnotationView];
+    self.transitPin = (MBPin *)annotationView.annotation;
     if ([self.transitPin.title isEqualToString:kUnnamed]) {
         [self performSegueWithIdentifier:toMBNearbyVCFromPin sender:self];
     } else {

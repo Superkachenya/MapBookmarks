@@ -28,6 +28,7 @@
 		8EE20F851CA59BEA00DF560A /* MBPin+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE20F821CA59BEA00DF560A /* MBPin+CoreDataProperties.m */; };
 		8EE20F861CA59BEA00DF560A /* MBPin.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE20F841CA59BEA00DF560A /* MBPin.m */; };
 		8EE20F8D1CA5A51600DF560A /* NSManagedObjectContext+MBSave.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE20F8C1CA5A51600DF560A /* NSManagedObjectContext+MBSave.m */; };
+		8EE93A251CA7EFF3005BE79F /* UIView+MKAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE93A241CA7EFF2005BE79F /* UIView+MKAnnotationView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,8 @@
 		8EE20F841CA59BEA00DF560A /* MBPin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBPin.m; sourceTree = "<group>"; };
 		8EE20F8B1CA5A51600DF560A /* NSManagedObjectContext+MBSave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+MBSave.h"; sourceTree = "<group>"; };
 		8EE20F8C1CA5A51600DF560A /* NSManagedObjectContext+MBSave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+MBSave.m"; sourceTree = "<group>"; };
+		8EE93A231CA7EFF2005BE79F /* UIView+MKAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MKAnnotationView.h"; sourceTree = "<group>"; };
+		8EE93A241CA7EFF2005BE79F /* UIView+MKAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MKAnnotationView.m"; sourceTree = "<group>"; };
 		A2DADB760B1262E4A89EAC4D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B69A5E76DF02F78D07EF5A69 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -205,6 +208,8 @@
 				8EE20F7D1CA5407900DF560A /* StoryboardConstants */,
 				8E1797B01CA2943300206FCD /* MBMapViewController.h */,
 				8E1797B11CA2943300206FCD /* MBMapViewController.m */,
+				8EE93A231CA7EFF2005BE79F /* UIView+MKAnnotationView.h */,
+				8EE93A241CA7EFF2005BE79F /* UIView+MKAnnotationView.m */,
 				8EE20F731CA530C600DF560A /* Bookmarks */,
 				8EDD3F7D1CA6AF5C007D81D4 /* Buttons */,
 				8EDD3F7C1CA6AE74007D81D4 /* NearbyPlaces */,
@@ -435,6 +440,7 @@
 				8E1797E11CA2F17100206FCD /* MBBookmarksTableViewController.m in Sources */,
 				8EE20F801CA59B7100DF560A /* MBPin.xcdatamodeld in Sources */,
 				8E1797B21CA2943300206FCD /* MBMapViewController.m in Sources */,
+				8EE93A251CA7EFF3005BE79F /* UIView+MKAnnotationView.m in Sources */,
 				8E1797DD1CA2DA8900206FCD /* MBNetworkManager.m in Sources */,
 				8E1797AF1CA2943300206FCD /* AppDelegate.m in Sources */,
 				8E1797D31CA296F000206FCD /* MBCoreDataStack.m in Sources */,

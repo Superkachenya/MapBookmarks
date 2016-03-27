@@ -31,6 +31,11 @@
     } else {
         [self.loadPlacesButton setHidden:NO];
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    
     self.TitleLabel.text = self.pin.title;
     self.locationLabel.text = [NSString stringWithFormat:@"%f, %f", self.pin.coordinate.latitude, self.pin.coordinate.longitude];
 }
