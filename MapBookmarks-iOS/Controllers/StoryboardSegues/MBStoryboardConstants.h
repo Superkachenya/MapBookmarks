@@ -15,8 +15,9 @@ extern NSString *const kMBNearbyPlacesCellIdentifier;
 extern NSString *const toMBBookmarksVC;
 extern NSString *const toMBButtonsVC;
 extern NSString *const toMBNearbyPlacesVC;
-extern NSString *const toMBNearbyVCFromPin;
 extern NSString *const toMBButtonsVCFromPin;
+
 extern NSString *const unwindToMBButtonsFromNearbyVC;
+extern NSString *const unwindToMapVC;
 
 extern NSString *const IDMBContentViewController;

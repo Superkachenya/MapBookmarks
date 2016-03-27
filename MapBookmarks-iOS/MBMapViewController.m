@@ -33,6 +33,7 @@ NSString *const kUnnamed = @"Unnamed";
 @property (weak, nonatomic) MBPin *transitPin;
 @property (strong, nonatomic) MKDirections *directions;
 @property (strong, nonatomic)NSFetchedResultsController *fetchResults;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *routeButton;
 
 @end
 
@@ -126,17 +127,22 @@ NSString *const kUnnamed = @"Unnamed";
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:toMBNearbyVCFromPin]) {
-        MBNearbyPlacesViewController *nearVC = [segue destinationViewController];
-        nearVC.pin = self.transitPin;
-    } else if ([segue.identifier isEqualToString:toMBButtonsVCFromPin]) {
+    if ([segue.identifier isEqualToString:toMBButtonsVCFromPin]) {
         MBButtonsViewController *buttonsVC = [segue destinationViewController];
         buttonsVC.pin = self.transitPin;
+        buttonsVC.routeButton = ^(MBPin *pin) {
+            [self showRouteFromUserTo:pin];
+        };
+        buttonsVC.centerButton = ^(MBPin *pin) {
+            [self centerOnPin:pin];
+        };
     }
 }
-
-
-
+- (IBAction)prepareForUnwindToMap:(UIStoryboardSegue *)segue {
+    if (self.mapView.layer) {
+        self.routeButton.title = kClean;
+    }
+}
 #pragma mark - Draw route
 
 - (void)showRouteFromUserTo:(MBPin *)pin {
@@ -178,6 +184,10 @@ NSString *const kUnnamed = @"Unnamed";
             [self.mapView addOverlays:array level:MKOverlayLevelAboveRoads];
         }
     }];
+}
+
+- (void)centerOnPin:(MBPin *)pin {
+    [self.mapView setCenterCoordinate:pin.coordinate animated:YES];
 }
 
 #pragma mark - HandleEvents
@@ -231,11 +241,7 @@ NSString *const kUnnamed = @"Unnamed";
 - (void)detailButtonDidPress:(UIButton *)sender {
     MKAnnotationView *annotationView = [sender superAnnotationView];
     self.transitPin = (MBPin *)annotationView.annotation;
-    if ([self.transitPin.title isEqualToString:kUnnamed]) {
-        [self performSegueWithIdentifier:toMBNearbyVCFromPin sender:self];
-    } else {
-        [self performSegueWithIdentifier:toMBButtonsVCFromPin sender:self];
-    }
+    [self performSegueWithIdentifier:toMBButtonsVCFromPin sender:self];
 }
 
 @end

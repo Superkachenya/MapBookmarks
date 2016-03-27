@@ -47,8 +47,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="Xmh-eg-TtN" id="OOB-5v-Lje"/>
+                        <outlet property="routeButton" destination="Rm4-Aq-aX2" id="rec-pD-wYd"/>
                         <segue destination="4v4-kD-BTS" kind="show" identifier="toMBButtonsVCFromPin" id="kre-dE-yh5"/>
-                        <segue destination="6aU-e5-yBh" kind="show" identifier="toMBNearbyVCFromPin" id="fHw-jC-aUz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -153,6 +153,7 @@
                                         <state key="normal" title="Draw route"/>
                                         <connections>
                                             <action selector="drawRouteDidPress:" destination="4v4-kD-BTS" eventType="touchUpInside" id="hGT-Y7-htM"/>
+                                            <segue destination="XBQ-fU-D92" kind="unwind" identifier="unwindToMapVC" unwindAction="prepareForUnwindToMap:" id="aFQ-vN-51b"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yec-q4-RMe">
@@ -167,6 +168,7 @@
                                         <state key="normal" title="Center in map"/>
                                         <connections>
                                             <action selector="centerButtonDidPress:" destination="4v4-kD-BTS" eventType="touchUpInside" id="hJa-z1-nYH"/>
+                                            <segue destination="XBQ-fU-D92" kind="unwind" unwindAction="prepareForUnwindToMap:" id="fBp-3W-Tvk"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -211,6 +213,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lsy-VK-to3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="XBQ-fU-D92" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="363" y="424"/>
         </scene>
@@ -268,13 +271,13 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="tableView" destination="7UE-Gx-151" id="GGC-xq-NjG"/>
-                        <segue destination="Ju6-6l-mK2" kind="unwind" identifier="unwindToMBButtonsFromNearbyVC" unwindAction="prepareForUnwind:" id="Gfm-yc-koq"/>
+                        <segue destination="Ju6-6l-mK2" kind="unwind" identifier="unwindToMBButtonsFromNearbyVC" unwindAction="prepareForUnwindToButtons:" id="pOk-Tn-6vj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3iG-hx-S6s" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Ju6-6l-mK2" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="106" y="1175"/>
+            <point key="canvasLocation" x="363" y="1099"/>
         </scene>
         <!--Route View Controller-->
         <scene sceneID="X0D-fA-xvP">
@@ -362,6 +365,5 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="kre-dE-yh5"/>
-        <segue reference="fHw-jC-aUz"/>
     </inferredMetricsTieBreakers>
 </document>

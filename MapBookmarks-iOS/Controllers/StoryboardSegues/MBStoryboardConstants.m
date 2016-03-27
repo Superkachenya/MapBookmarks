@@ -12,12 +12,12 @@ NSString *const kMBPinsOnScreenCellIdentifier = @"kMBPinsOnScreenCellIdentifier"
 NSString *const kMBBookmarksCellIdentifier    = @"kMBBookmarksCellIdentifier";
 NSString *const kMBNearbyPlacesCellIdentifier = @"kMBNearbyPlacesCellIdentifier";
 
-NSString *const toMBBookmarksVC       = @"toMBBookmarksVC";
-NSString *const toMBButtonsVC         = @"toMBButtonsVC";
-NSString *const toMBNearbyPlacesVC    = @"toMBNearbyPlacesVC";
-NSString *const toMBNearbyVCFromPin   = @"toMBNearbyVCFromPin";
-NSString *const toMBButtonsVCFromPin  = @"toMBButtonsVCFromPin";
+NSString *const toMBBookmarksVC               = @"toMBBookmarksVC";
+NSString *const toMBButtonsVC                 = @"toMBButtonsVC";
+NSString *const toMBNearbyPlacesVC            = @"toMBNearbyPlacesVC";
+NSString *const toMBButtonsVCFromPin          = @"toMBButtonsVCFromPin";
 
 NSString *const unwindToMBButtonsFromNearbyVC = @"unwindToMBButtonsFromNearbyVC";
+NSString *const unwindToMapVC                 = @"unwindToMapVC";
 
-NSString *const IDMBContentViewController = @"IDMBContentViewController";
+NSString *const IDMBContentViewController     = @"IDMBContentViewController";

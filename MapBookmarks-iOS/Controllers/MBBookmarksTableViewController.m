@@ -8,6 +8,7 @@
 
 @import CoreData;
 #import "MBStoryboardConstants.h"
+#import "MBMapViewController.h"
 #import "MBBookmarksTableViewController.h"
 #import "MBButtonsViewController.h"
 #import "MBCoreDataStack.h"
@@ -69,7 +70,14 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         MBPin *pin = [self.fetchResults objectAtIndexPath:indexPath];
         MBButtonsViewController *buttonsVC = [segue destinationViewController];
+        MBMapViewController *map = [[self.navigationController viewControllers]firstObject];
         buttonsVC.pin = pin;
+        buttonsVC.routeButton = ^(MBPin *pin) {
+            [map showRouteFromUserTo:pin];
+        };
+        buttonsVC.centerButton = ^(MBPin *pin) {
+            [map centerOnPin:pin];
+        };
     }
 }
 

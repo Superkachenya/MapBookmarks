@@ -9,8 +9,13 @@
 @import UIKit;
 @class MBPin;
 
+typedef void(^MBDrawRouteButton)(MBPin *pin);
+typedef void(^MBSetCenterButton)(MBPin *pin);
+
 @interface MBButtonsViewController : UIViewController
 
 @property (strong, nonatomic) MBPin *pin;
+@property (copy, nonatomic) MBDrawRouteButton routeButton;
+@property (copy, nonatomic) MBSetCenterButton centerButton;
 
 @end

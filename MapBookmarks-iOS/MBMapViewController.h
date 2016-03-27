@@ -7,9 +7,12 @@
 //
 
 @import UIKit;
+@class MBPin;
 
 @interface MBMapViewController : UIViewController
 
+- (void)showRouteFromUserTo:(MBPin *)pin;
+- (void)centerOnPin:(MBPin *)pin;
 
 @end
 

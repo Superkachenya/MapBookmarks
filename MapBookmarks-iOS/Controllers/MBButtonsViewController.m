@@ -46,9 +46,11 @@
 }
 
 - (IBAction)centerButtonDidPress:(id)sender {
+    self.centerButton(self.pin);
 }
 
 - (IBAction)drawRouteDidPress:(id)sender {
+    self.routeButton(self.pin);
 }
 
 - (IBAction)trashButtonDidPress:(id)sender {
@@ -83,7 +85,7 @@
     }
 }
 
-- (IBAction)prepareForUnwind:(UIStoryboardSegue *)segue {
+- (IBAction)prepareForUnwindToButtons:(UIStoryboardSegue *)segue {
     if ([segue.identifier isEqualToString:unwindToMBButtonsFromNearbyVC]) {
         MBNearbyPlacesViewController *placesVC = [segue sourceViewController];
         self.pin = placesVC.pin;

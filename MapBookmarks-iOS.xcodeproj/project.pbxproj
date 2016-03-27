@@ -205,11 +205,9 @@
 		8E1797DA1CA2DA4900206FCD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8EE20F7D1CA5407900DF560A /* StoryboardConstants */,
+				8EE20F7D1CA5407900DF560A /* Helpers */,
 				8E1797B01CA2943300206FCD /* MBMapViewController.h */,
 				8E1797B11CA2943300206FCD /* MBMapViewController.m */,
-				8EE93A231CA7EFF2005BE79F /* UIView+MKAnnotationView.h */,
-				8EE93A241CA7EFF2005BE79F /* UIView+MKAnnotationView.m */,
 				8EE20F731CA530C600DF560A /* Bookmarks */,
 				8EDD3F7D1CA6AF5C007D81D4 /* Buttons */,
 				8EDD3F7C1CA6AE74007D81D4 /* NearbyPlaces */,
@@ -263,13 +261,15 @@
 			name = Bookmarks;
 			sourceTree = "<group>";
 		};
-		8EE20F7D1CA5407900DF560A /* StoryboardConstants */ = {
+		8EE20F7D1CA5407900DF560A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				8EE20F7A1CA5407400DF560A /* MBStoryboardConstants.h */,
 				8EE20F7B1CA5407400DF560A /* MBStoryboardConstants.m */,
+				8EE93A241CA7EFF2005BE79F /* UIView+MKAnnotationView.m */,
+				8EE93A231CA7EFF2005BE79F /* UIView+MKAnnotationView.h */,
 			);
-			name = StoryboardConstants;
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		8EE20F871CA59F4D00DF560A /* CoreData */ = {
