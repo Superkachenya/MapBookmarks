@@ -28,13 +28,13 @@ NSString *const kUnnamed = @"Unnamed";
 @interface MBMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, WYPopoverControllerDelegate, NSFetchedResultsControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *routeButton;
+
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) WYPopoverController *popover;
 @property (weak, nonatomic) MBPin *transitPin;
 @property (strong, nonatomic) MKDirections *directions;
 @property (strong, nonatomic)NSFetchedResultsController *fetchResults;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *routeButton;
-
 @end
 
 @implementation MBMapViewController
@@ -52,11 +52,6 @@ NSString *const kUnnamed = @"Unnamed";
     }
     [self.locationManager startUpdatingLocation];
     [self.mapView addAnnotations:self.fetchResults.fetchedObjects];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - MKMapViewDelegate
@@ -108,10 +103,9 @@ NSString *const kUnnamed = @"Unnamed";
 
 #pragma mark - NSFetchedResultsControllerDelegate
 
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self.mapView addAnnotations:self.fetchResults.fetchedObjects];
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    
 }
-
 
 #pragma mark - Navigation
 
@@ -129,9 +123,7 @@ NSString *const kUnnamed = @"Unnamed";
 }
 
 - (IBAction)prepareForUnwindToMap:(UIStoryboardSegue *)segue {
-    if (self.mapView.layer) {
-        self.routeButton.title = kClean;
-    }
+    
 }
 #pragma mark - Draw route
 
@@ -141,6 +133,7 @@ NSString *const kUnnamed = @"Unnamed";
 }
 
 - (void)showRouteFromUserTo:(MBPin *)pin {
+    self.routeButton.title = kClean;
     if (!pin) {
         return;
     }
@@ -211,6 +204,7 @@ NSString *const kUnnamed = @"Unnamed";
                 anView.hidden = NO;
             }
         }
+        [self.mapView setCenterCoordinate:self.mapView.userLocation.location.coordinate animated:YES];
         sender.title = kRoute;
     } else {
         MBRouteViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:IDMBContentViewController];

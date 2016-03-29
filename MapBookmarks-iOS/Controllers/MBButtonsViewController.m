@@ -34,7 +34,6 @@
     self.locationLabel.text = [NSString stringWithFormat:@"%f, %f", self.pin.coordinate.latitude, self.pin.coordinate.longitude];
     if ([self.pin.title isEqualToString:@"Unnamed"]) {
         [self.loadPlacesButton setHidden:YES];
-        [self performSegueWithIdentifier:toMBNearbyPlacesVC sender:self];
     } else {
         [self.loadPlacesButton setHidden:NO];
     }
@@ -68,8 +67,8 @@
                                                handler:^(UIAlertAction * _Nonnull action) {
                                                    NSManagedObjectContext *context = [MBCoreDataStack sharedManager].mainContext;
                                                    [context deleteObject:self.pin];
-                                                   [self performSegueWithIdentifier:unwindToBookmarksVC sender:self];
                                                    [context saveContext];
+                                                   [self performSegueWithIdentifier:unwindToMapVC sender:self];
                                                }];
     [alert addAction:cancel];
     [alert addAction:ok];
@@ -80,6 +79,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:toMBNearbyPlacesVC]) {
+        MBNearbyPlacesViewController *placesVC = [segue destinationViewController];
+        placesVC.pin = self.pin;
+    } else if ([segue.identifier isEqualToString:toMBContainerNearbyPlacesVC]) {
         MBNearbyPlacesViewController *placesVC = [segue destinationViewController];
         placesVC.pin = self.pin;
     }

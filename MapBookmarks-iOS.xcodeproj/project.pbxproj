@@ -266,8 +266,8 @@
 			children = (
 				8EE20F7A1CA5407400DF560A /* MBStoryboardConstants.h */,
 				8EE20F7B1CA5407400DF560A /* MBStoryboardConstants.m */,
-				8EE93A241CA7EFF2005BE79F /* UIView+MKAnnotationView.m */,
 				8EE93A231CA7EFF2005BE79F /* UIView+MKAnnotationView.h */,
+				8EE93A241CA7EFF2005BE79F /* UIView+MKAnnotationView.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";

@@ -16,6 +16,7 @@ NSString *const toMBBookmarksVC               = @"toMBBookmarksVC";
 NSString *const toMBButtonsVC                 = @"toMBButtonsVC";
 NSString *const toMBNearbyPlacesVC            = @"toMBNearbyPlacesVC";
 NSString *const toMBButtonsVCFromPin          = @"toMBButtonsVCFromPin";
+NSString *const toMBContainerNearbyPlacesVC   = @"toMBContainerNearbyPlacesVC";
 
 NSString *const unwindToMBButtonsFromNearbyVC = @"unwindToMBButtonsFromNearbyVC";
 NSString *const unwindToMapVC                 = @"unwindToMapVC";

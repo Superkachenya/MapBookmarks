@@ -16,6 +16,7 @@ extern NSString *const toMBBookmarksVC;
 extern NSString *const toMBButtonsVC;
 extern NSString *const toMBNearbyPlacesVC;
 extern NSString *const toMBButtonsVCFromPin;
+extern NSString *const toMBContainerNearbyPlacesVC;
 
 extern NSString *const unwindToMBButtonsFromNearbyVC;
 extern NSString *const unwindToMapVC;

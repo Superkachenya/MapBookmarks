@@ -49,7 +49,7 @@
     return cell;
 }
 
-- (UITableViewCellEditingStyle)tableView:(UITableView *)aTableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.tableView.editing) {
         return UITableViewCellEditingStyleDelete;
     }
@@ -90,7 +90,6 @@
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     [self.tableView beginUpdates];
 }
-
 
 - (void)controller:(NSFetchedResultsController *)controller
    didChangeObject:(id)anObject

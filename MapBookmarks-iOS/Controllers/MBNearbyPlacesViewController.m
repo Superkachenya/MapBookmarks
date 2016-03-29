@@ -58,6 +58,7 @@
     NSManagedObjectContext *context = [MBCoreDataStack sharedManager].mainContext;
     [context saveContext];
     [self performSegueWithIdentifier:unwindToMBButtonsFromNearbyVC sender:self];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end
