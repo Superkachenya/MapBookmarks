@@ -32,9 +32,11 @@ NSString *const kUnnamed = @"Unnamed";
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) WYPopoverController *popover;
-@property (weak, nonatomic) MBPin *transitPin;
 @property (strong, nonatomic) MKDirections *directions;
-@property (strong, nonatomic)NSFetchedResultsController *fetchResults;
+@property (strong, nonatomic) NSFetchedResultsController *fetchResults;
+@property (strong, nonatomic) MBPin *transitPin;
+@property (strong, nonatomic) MBPin *routePin;
+
 @end
 
 @implementation MBMapViewController
@@ -57,11 +59,15 @@ NSString *const kUnnamed = @"Unnamed";
 #pragma mark - MKMapViewDelegate
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
-    MKMapCamera *camera = [MKMapCamera cameraLookingAtCenterCoordinate:userLocation.coordinate
-                                                     fromEyeCoordinate:CLLocationCoordinate2DMake(userLocation.coordinate.latitude,
-                                                                                                  userLocation.coordinate.longitude)
-                                                           eyeAltitude:kCLLocationAccuracyKilometer];
-    [self.mapView setCamera:camera animated:YES];
+    if ([self.routeButton.title isEqualToString:kClean]) {
+        [self redrawRoute];
+    } else {
+        MKMapCamera *camera = [MKMapCamera cameraLookingAtCenterCoordinate:userLocation.coordinate
+                                                         fromEyeCoordinate:CLLocationCoordinate2DMake(userLocation.coordinate.latitude,
+                                                                                                      userLocation.coordinate.longitude)
+                                                               eyeAltitude:kCLLocationAccuracyKilometer];
+        [self.mapView setCamera:camera animated:YES];
+    }
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
@@ -125,7 +131,7 @@ NSString *const kUnnamed = @"Unnamed";
 - (IBAction)prepareForUnwindToMap:(UIStoryboardSegue *)segue {
     
 }
-#pragma mark - Draw route
+#pragma mark - Map manipulations
 
 - (void)zoomToPolyLine:(MKMapView *)map polyline:(MKPolyline*)polyline animated: (BOOL)animated
 {
@@ -134,6 +140,7 @@ NSString *const kUnnamed = @"Unnamed";
 
 - (void)showRouteFromUserTo:(MBPin *)pin {
     self.routeButton.title = kClean;
+    self.routePin = pin;
     if (!pin) {
         return;
     }
@@ -155,7 +162,7 @@ NSString *const kUnnamed = @"Unnamed";
                                                    addressDictionary:nil];
     MKMapItem* destination = [[MKMapItem alloc] initWithPlacemark:placemark];
     request.destination = destination;
-    request.transportType = MKDirectionsTransportTypeWalking;
+    request.transportType = MKDirectionsTransportTypeAutomobile;
     request.requestsAlternateRoutes = NO;
     self.directions = [[MKDirections alloc] initWithRequest:request];
     [self.directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
@@ -170,6 +177,10 @@ NSString *const kUnnamed = @"Unnamed";
             [self zoomToPolyLine:self.mapView polyline:route.polyline animated:YES];
         }
     }];
+}
+
+- (void)redrawRoute {
+    [self showRouteFromUserTo:self.routePin];
 }
 
 - (void)centerOnPin:(MBPin *)pin {
