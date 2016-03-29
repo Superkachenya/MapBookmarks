@@ -146,66 +146,68 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hcv-Qd-eGf">
-                                <rect key="frame" x="20" y="148" width="280" height="21"/>
+                                <rect key="frame" x="20" y="135" width="280" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ueR-dc-13m">
-                                <rect key="frame" x="20" y="107" width="280" height="21"/>
+                                <rect key="frame" x="20" y="84" width="280" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="i3C-se-DXu">
-                                <rect key="frame" x="93" y="193" width="134" height="90"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UUG-8d-l2M">
-                                        <rect key="frame" x="0.0" y="0.0" width="134" height="30"/>
-                                        <state key="normal" title="Draw route"/>
-                                        <connections>
-                                            <action selector="drawRouteDidPress:" destination="4v4-kD-BTS" eventType="touchUpInside" id="hGT-Y7-htM"/>
-                                            <segue destination="XBQ-fU-D92" kind="unwind" identifier="unwindToMapVC" unwindAction="prepareForUnwindToMap:" id="aFQ-vN-51b"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yec-q4-RMe">
-                                        <rect key="frame" x="0.0" y="30" width="134" height="30"/>
-                                        <state key="normal" title="Load nearby places"/>
-                                        <connections>
-                                            <segue destination="6aU-e5-yBh" kind="show" identifier="toMBNearbyPlacesVC" id="5tN-1O-hSp"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y3f-Yk-Nuv">
-                                        <rect key="frame" x="0.0" y="60" width="134" height="30"/>
-                                        <state key="normal" title="Center in map"/>
-                                        <connections>
-                                            <action selector="centerButtonDidPress:" destination="4v4-kD-BTS" eventType="touchUpInside" id="hJa-z1-nYH"/>
-                                            <segue destination="XBQ-fU-D92" kind="unwind" unwindAction="prepareForUnwindToMap:" id="fBp-3W-Tvk"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y3f-Yk-Nuv">
+                                <rect key="frame" x="93" y="221" width="134" height="30"/>
+                                <state key="normal" title="Center in map"/>
+                                <connections>
+                                    <action selector="centerButtonDidPress:" destination="4v4-kD-BTS" eventType="touchUpInside" id="hJa-z1-nYH"/>
+                                    <segue destination="XBQ-fU-D92" kind="unwind" unwindAction="prepareForUnwindToMap:" id="fBp-3W-Tvk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yec-q4-RMe">
+                                <rect key="frame" x="93" y="256" width="134" height="30"/>
+                                <state key="normal" title="Load nearby places"/>
+                                <connections>
+                                    <action selector="loadNearbyPlacesDidPress:" destination="4v4-kD-BTS" eventType="touchUpInside" id="COV-jA-rEO"/>
+                                </connections>
+                            </button>
                             <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bz9-A4-Bbq">
-                                <rect key="frame" x="0.0" y="293" width="320" height="275"/>
+                                <rect key="frame" x="0.0" y="256" width="320" height="312"/>
                                 <connections>
                                     <segue destination="6aU-e5-yBh" kind="embed" identifier="toMBContainerNearbyPlacesVC" id="7Pl-J7-qkm"/>
                                 </connections>
                             </containerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UUG-8d-l2M">
+                                <rect key="frame" x="93" y="186" width="134" height="30"/>
+                                <state key="normal" title="Draw route"/>
+                                <connections>
+                                    <action selector="drawRouteDidPress:" destination="4v4-kD-BTS" eventType="touchUpInside" id="hGT-Y7-htM"/>
+                                    <segue destination="XBQ-fU-D92" kind="unwind" identifier="unwindToMapVC" unwindAction="prepareForUnwindToMap:" id="aFQ-vN-51b"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="hcv-Qd-eGf" secondAttribute="trailing" constant="20" id="748-Q8-AfK"/>
-                            <constraint firstItem="hcv-Qd-eGf" firstAttribute="leading" secondItem="CHr-n8-abj" secondAttribute="leading" constant="20" id="A03-8I-eFu"/>
-                            <constraint firstItem="bz9-A4-Bbq" firstAttribute="top" secondItem="i3C-se-DXu" secondAttribute="bottom" constant="10" id="AXS-L7-YLI"/>
-                            <constraint firstItem="i3C-se-DXu" firstAttribute="centerX" secondItem="CHr-n8-abj" secondAttribute="centerX" id="ERA-kz-kAA"/>
-                            <constraint firstAttribute="trailing" secondItem="bz9-A4-Bbq" secondAttribute="trailing" id="JCY-AF-RRn"/>
-                            <constraint firstItem="ueR-dc-13m" firstAttribute="top" secondItem="IFM-B6-CQy" secondAttribute="bottom" constant="43" id="MYl-1n-Rdu"/>
-                            <constraint firstItem="bz9-A4-Bbq" firstAttribute="leading" secondItem="CHr-n8-abj" secondAttribute="leading" id="WND-NZ-BUu"/>
-                            <constraint firstItem="hcv-Qd-eGf" firstAttribute="top" secondItem="ueR-dc-13m" secondAttribute="bottom" constant="20" id="Wug-Wo-fU4"/>
-                            <constraint firstItem="i3C-se-DXu" firstAttribute="centerY" secondItem="CHr-n8-abj" secondAttribute="centerY" constant="-46" id="Yig-nv-UgM"/>
-                            <constraint firstAttribute="trailing" secondItem="ueR-dc-13m" secondAttribute="trailing" constant="20" id="bnP-5K-nKl"/>
-                            <constraint firstItem="yGF-Xu-c6J" firstAttribute="top" secondItem="bz9-A4-Bbq" secondAttribute="bottom" id="puf-JK-QCZ"/>
-                            <constraint firstItem="ueR-dc-13m" firstAttribute="leading" secondItem="CHr-n8-abj" secondAttribute="leading" constant="20" id="txG-J0-jRN"/>
+                            <constraint firstItem="Y3f-Yk-Nuv" firstAttribute="leading" secondItem="CHr-n8-abj" secondAttribute="leading" constant="93" id="4q3-HX-tB4"/>
+                            <constraint firstAttribute="trailing" secondItem="hcv-Qd-eGf" secondAttribute="trailing" constant="20" id="932-hm-PZP"/>
+                            <constraint firstItem="ueR-dc-13m" firstAttribute="top" secondItem="IFM-B6-CQy" secondAttribute="bottom" constant="20" id="BgU-vD-WId"/>
+                            <constraint firstItem="UUG-8d-l2M" firstAttribute="leading" secondItem="CHr-n8-abj" secondAttribute="leading" constant="93" id="Hgb-b4-0Ws"/>
+                            <constraint firstItem="yec-q4-RMe" firstAttribute="leading" secondItem="CHr-n8-abj" secondAttribute="leading" constant="93" id="HsL-dw-GEe"/>
+                            <constraint firstAttribute="trailing" secondItem="ueR-dc-13m" secondAttribute="trailing" constant="20" id="LGT-Uv-haK"/>
+                            <constraint firstItem="yGF-Xu-c6J" firstAttribute="top" secondItem="bz9-A4-Bbq" secondAttribute="bottom" id="QH4-E3-pxS"/>
+                            <constraint firstAttribute="trailing" secondItem="yec-q4-RMe" secondAttribute="trailing" constant="93" id="SBS-y1-Iur"/>
+                            <constraint firstItem="ueR-dc-13m" firstAttribute="leading" secondItem="CHr-n8-abj" secondAttribute="leading" constant="20" id="YY0-fn-3PI"/>
+                            <constraint firstAttribute="trailing" secondItem="UUG-8d-l2M" secondAttribute="trailing" constant="93" id="aeO-6A-83S"/>
+                            <constraint firstItem="hcv-Qd-eGf" firstAttribute="leading" secondItem="CHr-n8-abj" secondAttribute="leading" constant="20" id="kFt-Yr-LLy"/>
+                            <constraint firstItem="hcv-Qd-eGf" firstAttribute="top" secondItem="ueR-dc-13m" secondAttribute="bottom" constant="30" id="lbT-od-gSA"/>
+                            <constraint firstAttribute="trailing" secondItem="Y3f-Yk-Nuv" secondAttribute="trailing" constant="93" id="lnH-2u-QpT"/>
+                            <constraint firstItem="yec-q4-RMe" firstAttribute="top" secondItem="Y3f-Yk-Nuv" secondAttribute="bottom" constant="5" id="lvP-TV-Lx1"/>
+                            <constraint firstItem="Y3f-Yk-Nuv" firstAttribute="top" secondItem="UUG-8d-l2M" secondAttribute="bottom" constant="5" id="nxp-zo-TMN"/>
+                            <constraint firstItem="UUG-8d-l2M" firstAttribute="top" secondItem="hcv-Qd-eGf" secondAttribute="bottom" constant="30" id="oON-OF-kIl"/>
+                            <constraint firstItem="bz9-A4-Bbq" firstAttribute="top" secondItem="Y3f-Yk-Nuv" secondAttribute="bottom" constant="5" id="rRF-IM-ZpU"/>
+                            <constraint firstItem="bz9-A4-Bbq" firstAttribute="leading" secondItem="CHr-n8-abj" secondAttribute="leading" id="rt0-Vf-gcg"/>
+                            <constraint firstAttribute="trailing" secondItem="bz9-A4-Bbq" secondAttribute="trailing" id="upD-2D-tFu"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Details" id="DXd-Ig-4gH">
@@ -377,6 +379,5 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="kre-dE-yh5"/>
-        <segue reference="7Pl-J7-qkm"/>
     </inferredMetricsTieBreakers>
 </document>

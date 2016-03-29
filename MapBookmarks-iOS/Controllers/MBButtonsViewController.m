@@ -26,12 +26,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
     [self updateView];
-    }
+}
 
 - (IBAction)centerButtonDidPress:(id)sender {
     self.centerButton(self.pin);
@@ -39,6 +35,11 @@
 
 - (IBAction)drawRouteDidPress:(id)sender {
     self.routeButton(self.pin);
+}
+
+- (IBAction)loadNearbyPlacesDidPress:(id)sender {
+    [self.loadPlacesButton setHidden:YES];
+    [self.containerView setHidden:NO];
 }
 
 - (IBAction)trashButtonDidPress:(id)sender {
