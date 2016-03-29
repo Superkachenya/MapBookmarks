@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *TitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *loadPlacesButton;
+@property (weak, nonatomic) IBOutlet UIView *containerView;
 
 @end
 
@@ -29,20 +30,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
-    
-    self.TitleLabel.text = self.pin.title;
-    self.locationLabel.text = [NSString stringWithFormat:@"%f, %f", self.pin.coordinate.latitude, self.pin.coordinate.longitude];
-    if ([self.pin.title isEqualToString:@"Unnamed"]) {
-        [self.loadPlacesButton setHidden:YES];
-    } else {
-        [self.loadPlacesButton setHidden:NO];
+    [self updateView];
     }
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (IBAction)centerButtonDidPress:(id)sender {
     self.centerButton(self.pin);
@@ -91,6 +80,24 @@
     if ([segue.identifier isEqualToString:unwindToMBButtonsFromNearbyVC]) {
         MBNearbyPlacesViewController *placesVC = [segue sourceViewController];
         self.pin = placesVC.pin;
+        [self updateView];
     }
+}
+
+- (void)updateView {
+    [self updateLabels];
+    if ([self.pin.title isEqualToString:@"Unnamed"]) {
+        [self.loadPlacesButton setHidden:YES];
+        [self.containerView setHidden:NO];
+    } else {
+        [self.loadPlacesButton setHidden:NO];
+        [self.containerView setHidden:YES];
+        
+    }
+}
+
+- (void)updateLabels {
+    self.TitleLabel.text = self.pin.title;
+    self.locationLabel.text = [NSString stringWithFormat:@"%f, %f", self.pin.coordinate.latitude, self.pin.coordinate.longitude];
 }
 @end
