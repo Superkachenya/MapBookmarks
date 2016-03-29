@@ -12,7 +12,6 @@
 @interface MBCoreDataStack : NSObject
 
 @property (strong, readonly) NSManagedObjectContext *mainContext;
-@property (strong, readonly) NSManagedObjectContext *workerContext;
 
 + (instancetype)sharedManager;
 

@@ -11,7 +11,7 @@
 
 @interface MBMapViewController : UIViewController
 
-- (void)showRouteFromUserTo:(MBPin *)pin;
+- (void)drawRouteFromUserToPin:(MBPin *)pin;
 - (void)centerOnPin:(MBPin *)pin;
 
 @end

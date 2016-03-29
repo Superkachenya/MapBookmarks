@@ -11,7 +11,6 @@
 @interface MBCoreDataStack ()
 
 @property (strong, nonatomic, readwrite) NSManagedObjectContext *mainContext;
-@property (strong, nonatomic, readwrite) NSManagedObjectContext *workerContext;
 @property (strong, nonatomic) NSManagedObjectContext *rootContext;
 
 - (void)initializeCoreData;
@@ -53,12 +52,10 @@
     NSAssert(coordinator, @"Failed to initialize coordinator");
     
     self.mainContext = [[NSManagedObjectContext alloc]initWithConcurrencyType:NSMainQueueConcurrencyType];
-    self.workerContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     self.rootContext = [[NSManagedObjectContext alloc]initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     
     [self.rootContext setPersistentStoreCoordinator:coordinator];
     [self.mainContext setParentContext:self.rootContext];
-    [self.workerContext setParentContext:self.rootContext];
     
     NSPersistentStoreCoordinator *psc = [[self rootContext] persistentStoreCoordinator];
     NSMutableDictionary *options = [NSMutableDictionary dictionary];

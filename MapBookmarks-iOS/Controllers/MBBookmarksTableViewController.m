@@ -7,12 +7,12 @@
 //
 
 @import CoreData;
+#import "MBCoreDataStack.h"
+#import "NSManagedObjectContext+MBSave.h"
 #import "MBStoryboardConstants.h"
 #import "MBMapViewController.h"
 #import "MBBookmarksTableViewController.h"
 #import "MBButtonsViewController.h"
-#import "MBCoreDataStack.h"
-#import "NSManagedObjectContext+MBSave.h"
 #import "MBPin.h"
 
 @interface MBBookmarksTableViewController ()
@@ -30,11 +30,6 @@
     self.fetchResults.delegate = self;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -48,6 +43,8 @@
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%f, %f", pin.coordinate.latitude, pin.coordinate.longitude];
     return cell;
 }
+
+#pragma mark - UITableViewDelegate
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.tableView.editing) {
@@ -74,16 +71,12 @@
         MBMapViewController *map = [[self.navigationController viewControllers]firstObject];
         buttonsVC.pin = pin;
         buttonsVC.routeButton = ^(MBPin *pin) {
-            [map showRouteFromUserTo:pin];
+            [map drawRouteFromUserToPin:pin];
         };
         buttonsVC.centerButton = ^(MBPin *pin) {
             [map centerOnPin:pin];
         };
     }
-}
-
-- (IBAction)prepareForUnwindToBookmarks:(UIStoryboardSegue *)segue {
-    
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate

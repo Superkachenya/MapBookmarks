@@ -29,6 +29,8 @@
     [self updateView];
 }
 
+# pragma mark - Handle events
+
 - (IBAction)centerButtonDidPress:(id)sender {
     self.centerButton(self.pin);
 }
@@ -82,6 +84,8 @@
     }
 }
 
+#pragma mark - Helpers
+
 - (void)updateView {
     [self updateLabels];
     if ([self.pin.title isEqualToString:@"Unnamed"]) {
@@ -90,7 +94,6 @@
     } else {
         [self.loadPlacesButton setHidden:NO];
         [self.containerView setHidden:YES];
-        
     }
 }
 
@@ -98,4 +101,5 @@
     self.TitleLabel.text = self.pin.title;
     self.locationLabel.text = [NSString stringWithFormat:@"%f, %f", self.pin.coordinate.latitude, self.pin.coordinate.longitude];
 }
+
 @end

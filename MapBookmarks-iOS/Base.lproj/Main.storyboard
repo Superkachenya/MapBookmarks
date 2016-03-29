@@ -223,7 +223,6 @@
                         <outlet property="containerView" destination="bz9-A4-Bbq" id="GON-cY-siw"/>
                         <outlet property="loadPlacesButton" destination="yec-q4-RMe" id="Bpz-ii-y3L"/>
                         <outlet property="locationLabel" destination="hcv-Qd-eGf" id="sUE-7n-UNB"/>
-                        <segue destination="XBQ-fU-D92" kind="unwind" identifier="unwindToBookmarksVC" unwindAction="prepareForUnwindToBookmarks:" id="fUD-q5-bc5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lsy-VK-to3" userLabel="First Responder" sceneMemberID="firstResponder"/>

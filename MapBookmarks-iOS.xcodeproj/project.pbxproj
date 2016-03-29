@@ -153,7 +153,6 @@
 				8E1797DA1CA2DA4900206FCD /* Controllers */,
 				8E1797D91CA2B27500206FCD /* Model */,
 				8E1797B31CA2943400206FCD /* Main.storyboard */,
-				8E1797D41CA2974F00206FCD /* CoreDataStack */,
 				8E1797B61CA2943400206FCD /* Assets.xcassets */,
 				8E1797B81CA2943400206FCD /* LaunchScreen.storyboard */,
 				8E1797BB1CA2943400206FCD /* Info.plist */,
@@ -198,6 +197,7 @@
 				8EE20F831CA59BEA00DF560A /* MBPin.h */,
 				8EE20F841CA59BEA00DF560A /* MBPin.m */,
 				8EE20F871CA59F4D00DF560A /* CoreData */,
+				8E1797D41CA2974F00206FCD /* CoreDataStack */,
 			);
 			name = Model;
 			sourceTree = "<group>";

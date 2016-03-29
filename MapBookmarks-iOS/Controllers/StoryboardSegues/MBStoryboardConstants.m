@@ -19,7 +19,5 @@ NSString *const toMBContainerNearbyPlacesVC   = @"toMBContainerNearbyPlacesVC";
 
 NSString *const unwindToMBButtonsFromNearbyVC = @"unwindToMBButtonsFromNearbyVC";
 NSString *const unwindToMapVC                 = @"unwindToMapVC";
-NSString *const unwindToBookmarksVC           = @"unwindToBookmarksVC";
-
 
 NSString *const IDMBContentViewController     = @"IDMBContentViewController";

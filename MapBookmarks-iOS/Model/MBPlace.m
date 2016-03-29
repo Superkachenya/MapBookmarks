@@ -14,8 +14,8 @@
     self.title = [place valueForKey:@"name"];
     NSNumber *lat = [place valueForKeyPath:@"location.lat"];
     NSNumber *lng = [place valueForKeyPath:@"location.lng"];
-    self.latitude = [lat doubleValue];
-    self.longitude = [lng doubleValue];
+    self.latitude = lat.doubleValue;
+    self.longitude = lng.doubleValue;
 }
 
 @end

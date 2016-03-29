@@ -32,7 +32,6 @@ NSString *const kUnnamed = @"Unnamed";
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) WYPopoverController *popover;
-@property (strong, nonatomic) MKDirections *directions;
 @property (strong, nonatomic) NSFetchedResultsController *fetchResults;
 @property (strong, nonatomic) MBPin *transitPin;
 @property (strong, nonatomic) MBPin *routePin;
@@ -136,7 +135,7 @@ NSString *const kUnnamed = @"Unnamed";
         MBButtonsViewController *buttonsVC = [segue destinationViewController];
         buttonsVC.pin = self.transitPin;
         buttonsVC.routeButton = ^(MBPin *pin) {
-            [self showRouteFromUserTo:pin];
+            [self drawRouteFromUserToPin:pin];
         };
         buttonsVC.centerButton = ^(MBPin *pin) {
             [self centerOnPin:pin];
@@ -153,12 +152,9 @@ NSString *const kUnnamed = @"Unnamed";
     [map setVisibleMapRect:[polyline boundingMapRect] edgePadding:UIEdgeInsetsMake(25.0, 25.0, 25.0, 25.0) animated:animated];
 }
 
-- (void)showRouteFromUserTo:(MBPin *)pin {
+- (void)drawRouteFromUserToPin:(MBPin *)pin {
     self.routeButton.title = kClean;
     self.routePin = pin;
-    if ([self.directions isCalculating]) {
-        [self.directions cancel];
-    }
     CLLocationDegrees latitude = pin.coordinate.latitude;
     CLLocationDegrees longitude = pin.coordinate.longitude;
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
@@ -176,8 +172,8 @@ NSString *const kUnnamed = @"Unnamed";
     request.destination = destination;
     request.transportType = MKDirectionsTransportTypeAutomobile;
     request.requestsAlternateRoutes = NO;
-    self.directions = [[MKDirections alloc] initWithRequest:request];
-    [self.directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
+    MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
+    [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
         if (error) {
             //[self showAlertWithTitle:@"Error" andMessage:[error localizedDescription]];
         } else if ([response.routes count] == 0) {
@@ -192,7 +188,7 @@ NSString *const kUnnamed = @"Unnamed";
 }
 
 - (void)redrawRoute {
-    [self showRouteFromUserTo:self.routePin];
+    [self drawRouteFromUserToPin:self.routePin];
 }
 
 - (void)centerOnPin:(MBPin *)pin {
@@ -233,7 +229,7 @@ NSString *const kUnnamed = @"Unnamed";
         controller.preferredContentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height /2);
         controller.modalInPopover = NO;
         controller.drawRouteBlock = ^(MBPin *pin) {
-            [self showRouteFromUserTo:pin];
+            [self drawRouteFromUserToPin:pin];
             [self.popover dismissPopoverAnimated:YES];
             sender.title = kClean;
         };

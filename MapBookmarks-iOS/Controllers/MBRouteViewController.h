@@ -9,8 +9,10 @@
 @import UIKit;
 @class MBPin;
 
+typedef void(^MBDrawRoutePop)(MBPin *pin);
+
 @interface MBRouteViewController : UIViewController
 
-@property (copy, nonatomic)void(^drawRouteBlock)(MBPin *pin);
+@property (copy, nonatomic)MBDrawRoutePop drawRouteBlock;
 
 @end

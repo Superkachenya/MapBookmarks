@@ -6,12 +6,11 @@
 //  Copyright © 2016 Cleveroad. All rights reserved.
 //
 
+#import "MBNearbyPlacesViewController.h"
 @import CoreData;
 #import "MBCoreDataStack.h"
 #import "NSManagedObjectContext+MBSave.h"
-#import "MBNearbyPlacesViewController.h"
 #import "MBStoryboardConstants.h"
-#import "MBButtonsViewController.h"
 #import "MBPlace.h"
 #import "MBPin.h"
 #import "MBNetworkManager.h"
@@ -58,7 +57,6 @@
     NSManagedObjectContext *context = [MBCoreDataStack sharedManager].mainContext;
     [context saveContext];
     [self performSegueWithIdentifier:unwindToMBButtonsFromNearbyVC sender:self];
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

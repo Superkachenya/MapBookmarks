@@ -19,6 +19,5 @@ extern NSString *const toMBContainerNearbyPlacesVC;
 
 extern NSString *const unwindToMBButtonsFromNearbyVC;
 extern NSString *const unwindToMapVC;
-extern NSString *const unwindToBookmarksVC;
 
 extern NSString *const IDMBContentViewController;
