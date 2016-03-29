@@ -68,10 +68,7 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:toMBNearbyPlacesVC]) {
-        MBNearbyPlacesViewController *placesVC = [segue destinationViewController];
-        placesVC.pin = self.pin;
-    } else if ([segue.identifier isEqualToString:toMBContainerNearbyPlacesVC]) {
+    if ([segue.identifier isEqualToString:toMBContainerNearbyPlacesVC]) {
         MBNearbyPlacesViewController *placesVC = [segue destinationViewController];
         placesVC.pin = self.pin;
     }

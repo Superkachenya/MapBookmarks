@@ -14,7 +14,6 @@ NSString *const kMBNearbyPlacesCellIdentifier = @"kMBNearbyPlacesCellIdentifier"
 
 NSString *const toMBBookmarksVC               = @"toMBBookmarksVC";
 NSString *const toMBButtonsVC                 = @"toMBButtonsVC";
-NSString *const toMBNearbyPlacesVC            = @"toMBNearbyPlacesVC";
 NSString *const toMBButtonsVCFromPin          = @"toMBButtonsVCFromPin";
 NSString *const toMBContainerNearbyPlacesVC   = @"toMBContainerNearbyPlacesVC";
 

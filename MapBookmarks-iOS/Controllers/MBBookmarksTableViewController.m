@@ -55,6 +55,7 @@
     }
     return UITableViewCellEditingStyleNone;
 }
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObjectContext *context = [MBCoreDataStack sharedManager].mainContext;
@@ -128,6 +129,8 @@
     cell.textLabel.text = pin.title;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%f, %f", pin.coordinate.latitude, pin.coordinate.longitude];
 }
+
+#pragma mark - Handle Events
 
 - (IBAction)editButtonDidPress:(UIBarButtonItem *)sender {
     if (!self.tableView.isEditing) {

@@ -109,9 +109,25 @@ NSString *const kUnnamed = @"Unnamed";
 
 #pragma mark - NSFetchedResultsControllerDelegate
 
-- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath
+     forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath {
+    if ([anObject isKindOfClass:[MBPin class]]) {
+        switch(type) {
+            case NSFetchedResultsChangeInsert:
+                [self.mapView addAnnotation:anObject];
+                break;
+            case NSFetchedResultsChangeDelete:
+                [self.mapView removeAnnotation:anObject];
+                break;
+            case NSFetchedResultsChangeUpdate:
+                break;
+            case NSFetchedResultsChangeMove:
+                break;
+        }
+    }
 }
+
 
 #pragma mark - Navigation
 
@@ -133,17 +149,13 @@ NSString *const kUnnamed = @"Unnamed";
 }
 #pragma mark - Map manipulations
 
-- (void)zoomToPolyLine:(MKMapView *)map polyline:(MKPolyline*)polyline animated: (BOOL)animated
-{
+- (void)zoomToPolyLine:(MKMapView *)map polyline:(MKPolyline*)polyline animated: (BOOL)animated {
     [map setVisibleMapRect:[polyline boundingMapRect] edgePadding:UIEdgeInsetsMake(25.0, 25.0, 25.0, 25.0) animated:animated];
 }
 
 - (void)showRouteFromUserTo:(MBPin *)pin {
     self.routeButton.title = kClean;
     self.routePin = pin;
-    if (!pin) {
-        return;
-    }
     if ([self.directions isCalculating]) {
         [self.directions cancel];
     }
@@ -201,7 +213,6 @@ NSString *const kUnnamed = @"Unnamed";
                                                 toCoordinateFromView:self.mapView];
         pin.title = kUnnamed;
         pin.coordinate = location;
-        [self.mapView addAnnotation:pin];
         [context saveContext];
     }
 }
