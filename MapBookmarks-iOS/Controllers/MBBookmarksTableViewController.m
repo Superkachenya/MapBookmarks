@@ -18,7 +18,10 @@
 @interface MBBookmarksTableViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic)NSFetchedResultsController *fetchResults;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
+
+@property (strong, nonatomic) NSFetchedResultsController *fetchResults;
+@property (strong, nonatomic) NSManagedObjectContext *context;
 
 @end
 
@@ -28,8 +31,13 @@
     [super viewDidLoad];
     self.fetchResults = [MBPin fetchedResultsFromStore];
     self.fetchResults.delegate = self;
+    self.context = [MBCoreDataStack sharedManager].mainContext;
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
+    [self.context rollback];
+}
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -55,9 +63,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSManagedObjectContext *context = [MBCoreDataStack sharedManager].mainContext;
-        [context deleteObject:[self.fetchResults objectAtIndexPath:indexPath]];
-        [context saveContext];
+        [self.context deleteObject:[self.fetchResults objectAtIndexPath:indexPath]];
     }
 }
 
@@ -95,10 +101,12 @@
         case NSFetchedResultsChangeInsert:
             [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
                                   withRowAnimation:UITableViewRowAnimationFade];
+            [self checkForBookmarks];
             break;
         case NSFetchedResultsChangeDelete:
             [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
                                   withRowAnimation:UITableViewRowAnimationFade];
+            [self checkForBookmarks];
             break;
         case NSFetchedResultsChangeUpdate:
             [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath]];
@@ -132,6 +140,16 @@
     } else {
         [self.tableView setEditing:NO animated:YES];
         sender.title = @"Edit";
+        [self checkForBookmarks];
+        [self.context saveContext];
+    }
+}
+
+- (void) checkForBookmarks {
+    if (!self.fetchResults.fetchedObjects.count && !self.tableView.isEditing) {
+        self.editButton.enabled = NO;
+    } else {
+        self.editButton.enabled = YES;
     }
 }
 @end

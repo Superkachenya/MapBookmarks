@@ -127,6 +127,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="editButton" destination="XJR-Yb-8bp" id="slU-X7-xgV"/>
                         <outlet property="tableView" destination="iFh-Ok-4ae" id="YFL-fU-xRc"/>
                     </connections>
                 </viewController>
@@ -378,6 +379,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="kre-dE-yh5"/>
+        <segue reference="5pL-dq-8wa"/>
     </inferredMetricsTieBreakers>
 </document>
