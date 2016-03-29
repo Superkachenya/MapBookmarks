@@ -29,6 +29,8 @@ NSString *const kUnnamed = @"Unnamed";
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *routeButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *bookmarksButton;
+
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) WYPopoverController *popover;
@@ -53,6 +55,7 @@ NSString *const kUnnamed = @"Unnamed";
     }
     [self.locationManager startUpdatingLocation];
     [self.mapView addAnnotations:self.fetchResults.fetchedObjects];
+    [self checkMapForPins];
 }
 
 #pragma mark - MKMapViewDelegate
@@ -115,9 +118,11 @@ NSString *const kUnnamed = @"Unnamed";
         switch(type) {
             case NSFetchedResultsChangeInsert:
                 [self.mapView addAnnotation:anObject];
+                [self checkMapForPins];
                 break;
             case NSFetchedResultsChangeDelete:
                 [self.mapView removeAnnotation:anObject];
+                [self checkMapForPins];
                 break;
             case NSFetchedResultsChangeUpdate:
                 break;
@@ -154,6 +159,7 @@ NSString *const kUnnamed = @"Unnamed";
 
 - (void)drawRouteFromUserToPin:(MBPin *)pin {
     self.routeButton.title = kClean;
+    self.bookmarksButton.enabled = NO;
     self.routePin = pin;
     CLLocationDegrees latitude = pin.coordinate.latitude;
     CLLocationDegrees longitude = pin.coordinate.longitude;
@@ -195,6 +201,16 @@ NSString *const kUnnamed = @"Unnamed";
     [self.mapView setCenterCoordinate:pin.coordinate animated:YES];
 }
 
+- (void)checkMapForPins {
+    if (!self.fetchResults.fetchedObjects.count) {
+        self.routeButton.enabled = NO;
+        self.bookmarksButton.enabled = NO;
+    } else {
+        self.routeButton.enabled = YES;
+        self.bookmarksButton.enabled = YES;
+    }
+}
+
 #pragma mark - HandleEvents
 
 - (IBAction)userDidAddPin:(UILongPressGestureRecognizer *)sender {
@@ -224,6 +240,7 @@ NSString *const kUnnamed = @"Unnamed";
         }
         [self.mapView setCenterCoordinate:self.mapView.userLocation.location.coordinate animated:YES];
         sender.title = kRoute;
+        self.bookmarksButton.enabled = YES;
     } else {
         MBRouteViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:IDMBContentViewController];
         controller.preferredContentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height /2);
@@ -231,7 +248,6 @@ NSString *const kUnnamed = @"Unnamed";
         controller.drawRouteBlock = ^(MBPin *pin) {
             [self drawRouteFromUserToPin:pin];
             [self.popover dismissPopoverAnimated:YES];
-            sender.title = kClean;
         };
         self.popover = [[WYPopoverController alloc] initWithContentViewController:controller];
         self.popover.delegate = self;

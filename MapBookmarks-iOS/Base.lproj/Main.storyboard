@@ -46,6 +46,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="bookmarksButton" destination="xQx-W4-mVc" id="UPb-EZ-5hu"/>
                         <outlet property="mapView" destination="Xmh-eg-TtN" id="OOB-5v-Lje"/>
                         <outlet property="routeButton" destination="Rm4-Aq-aX2" id="rec-pD-wYd"/>
                         <segue destination="4v4-kD-BTS" kind="show" identifier="toMBButtonsVCFromPin" id="kre-dE-yh5"/>
