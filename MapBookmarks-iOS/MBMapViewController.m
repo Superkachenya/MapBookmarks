@@ -24,13 +24,13 @@
 NSString *const kRoute   = @"Route";
 NSString *const kClean   = @"Clean Route";
 NSString *const kUnnamed = @"Unnamed";
+NSString *const kPinIdentifier = @"kPinIdentifier";
 
 @interface MBMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, WYPopoverControllerDelegate, NSFetchedResultsControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *routeButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *bookmarksButton;
-
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (strong, nonatomic) WYPopoverController *popover;
@@ -74,14 +74,12 @@ NSString *const kUnnamed = @"Unnamed";
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     if ([annotation isKindOfClass:[MBPin class]]) {
-        static NSString* identifier = @"Annotation";
         MBPin *myPin = (MBPin *)annotation;
-        MKPinAnnotationView* annotationView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
-        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:myPin reuseIdentifier:identifier];
+        MKPinAnnotationView* annotationView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:kPinIdentifier];
+        annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:myPin reuseIdentifier:kPinIdentifier];
         annotationView.pinTintColor = [MKPinAnnotationView greenPinColor];
         annotationView.animatesDrop = YES;
         annotationView.canShowCallout = YES;
-        
         UIButton* descriptionButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         [descriptionButton addTarget:self action:@selector(detailButtonDidPress:) forControlEvents:UIControlEventTouchUpInside];
         annotationView.rightCalloutAccessoryView = descriptionButton;
