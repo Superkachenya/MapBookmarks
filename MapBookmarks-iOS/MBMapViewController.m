@@ -128,6 +128,9 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
             case NSFetchedResultsChangeUpdate:
                 break;
             case NSFetchedResultsChangeMove:
+                if ([self.routeButton.title isEqualToString:kClean]) {
+                    [self redrawRoute];
+                }
                 break;
         }
     }
