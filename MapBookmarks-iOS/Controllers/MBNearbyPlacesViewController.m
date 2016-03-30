@@ -14,6 +14,7 @@
 #import "MBPlace.h"
 #import "MBPin.h"
 #import "MBNetworkManager.h"
+#import "UIViewController+MBErrorAlert.h"
 
 @interface MBNearbyPlacesViewController ()
 
@@ -27,9 +28,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [MBNetworkManager downloadNearbyPlacesUsingPin:self.pin completion:^(NSArray *places) {
+    [MBNetworkManager downloadNearbyPlacesUsingPin:self.pin completion:^(NSArray *places, NSError *error) {
+        if (error) {
+            [self createAlertForError:error InViewController:self];
+        } else {
         self.nearbyPlaces = places;
         [self.tableView reloadData];
+        }
     }];
 }
 

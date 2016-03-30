@@ -20,6 +20,7 @@
 #import "UIView+MKAnnotationView.h"
 #import "MBCoreDataStack.h"
 #import "NSManagedObjectContext+MBSave.h"
+#import "UIViewController+MBErrorAlert.h"
 
 NSString *const kRoute   = @"Route";
 NSString *const kClean   = @"Clean Route";
@@ -179,9 +180,7 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
     MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
     [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
         if (error) {
-            //[self showAlertWithTitle:@"Error" andMessage:[error localizedDescription]];
-        } else if ([response.routes count] == 0) {
-            //[self showAlertWithTitle:@"Error" andMessage:@"No routes found"];
+            [self createAlertForError:error InViewController:self];
         } else {
             [self.mapView removeOverlays:[self.mapView overlays]];
             MKRoute *route = response.routes.firstObject;

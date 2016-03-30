@@ -30,10 +30,9 @@ NSString *const token = @"&oauth_token=A5ZDWL2DLXPZCQ3ZJESVOAKDMPQHSNNVWC3UMVOUO
                  [newPlace getPlace:place];
                  [places addObject:newPlace];
              }
-             copyBlock(places);
+             copyBlock(places, nil);
          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-             NSLog(@"%@", error.localizedDescription);
-             
+             copyBlock(nil, error);
          }];
 }
 

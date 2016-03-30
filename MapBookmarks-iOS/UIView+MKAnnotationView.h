@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Alex Skutarenko. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
+@import UIKit;
 @class MKAnnotationView;
 
 @interface UIView (MKAnnotationView)

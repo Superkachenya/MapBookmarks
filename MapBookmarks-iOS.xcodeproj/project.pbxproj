@@ -20,6 +20,7 @@
 		8E1797DD1CA2DA8900206FCD /* MBNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797DC1CA2DA8900206FCD /* MBNetworkManager.m */; };
 		8E1797E11CA2F17100206FCD /* MBBookmarksTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797E01CA2F17100206FCD /* MBBookmarksTableViewController.m */; };
 		8E1797E91CA30A6D00206FCD /* MBPlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797E81CA30A6D00206FCD /* MBPlace.m */; };
+		8E9AB0281CABB25300B37A3C /* UIViewController+MBErrorAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E9AB0271CABB25300B37A3C /* UIViewController+MBErrorAlert.m */; };
 		8EB57D581CA3F27A00CB2568 /* MBRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB57D571CA3F27A00CB2568 /* MBRouteViewController.m */; };
 		8EE20F761CA5333100DF560A /* MBButtonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE20F751CA5333100DF560A /* MBButtonsViewController.m */; };
 		8EE20F791CA53AC200DF560A /* MBNearbyPlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE20F781CA53AC200DF560A /* MBNearbyPlacesViewController.m */; };
@@ -65,6 +66,8 @@
 		8E1797E01CA2F17100206FCD /* MBBookmarksTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBBookmarksTableViewController.m; path = Controllers/MBBookmarksTableViewController.m; sourceTree = "<group>"; };
 		8E1797E71CA30A6D00206FCD /* MBPlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBPlace.h; path = Model/MBPlace.h; sourceTree = "<group>"; };
 		8E1797E81CA30A6D00206FCD /* MBPlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBPlace.m; path = Model/MBPlace.m; sourceTree = "<group>"; };
+		8E9AB0261CABB25300B37A3C /* UIViewController+MBErrorAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+MBErrorAlert.h"; path = "Controllers/UIViewController+MBErrorAlert.h"; sourceTree = "<group>"; };
+		8E9AB0271CABB25300B37A3C /* UIViewController+MBErrorAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+MBErrorAlert.m"; path = "Controllers/UIViewController+MBErrorAlert.m"; sourceTree = "<group>"; };
 		8EB57D561CA3F27A00CB2568 /* MBRouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBRouteViewController.h; path = Controllers/MBRouteViewController.h; sourceTree = "<group>"; };
 		8EB57D571CA3F27A00CB2568 /* MBRouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBRouteViewController.m; path = Controllers/MBRouteViewController.m; sourceTree = "<group>"; };
 		8EE20F741CA5333100DF560A /* MBButtonsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBButtonsViewController.h; path = Controllers/MBButtonsViewController.h; sourceTree = "<group>"; };
@@ -268,6 +271,8 @@
 				8EE20F7B1CA5407400DF560A /* MBStoryboardConstants.m */,
 				8EE93A231CA7EFF2005BE79F /* UIView+MKAnnotationView.h */,
 				8EE93A241CA7EFF2005BE79F /* UIView+MKAnnotationView.m */,
+				8E9AB0261CABB25300B37A3C /* UIViewController+MBErrorAlert.h */,
+				8E9AB0271CABB25300B37A3C /* UIViewController+MBErrorAlert.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -440,6 +445,7 @@
 				8E1797E11CA2F17100206FCD /* MBBookmarksTableViewController.m in Sources */,
 				8EE20F801CA59B7100DF560A /* MBPin.xcdatamodeld in Sources */,
 				8E1797B21CA2943300206FCD /* MBMapViewController.m in Sources */,
+				8E9AB0281CABB25300B37A3C /* UIViewController+MBErrorAlert.m in Sources */,
 				8EE93A251CA7EFF3005BE79F /* UIView+MKAnnotationView.m in Sources */,
 				8E1797DD1CA2DA8900206FCD /* MBNetworkManager.m in Sources */,
 				8E1797AF1CA2943300206FCD /* AppDelegate.m in Sources */,

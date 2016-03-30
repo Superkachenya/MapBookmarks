@@ -8,7 +8,7 @@
 @import Foundation;
 @class MBPin;
 
-typedef void(^MBCompletionDownload)(NSArray *places);
+typedef void(^MBCompletionDownload)(NSArray *places, NSError *error);
 
 @interface MBNetworkManager : NSObject
 
