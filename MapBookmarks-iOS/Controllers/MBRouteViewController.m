@@ -21,6 +21,8 @@
 
 @implementation MBRouteViewController
 
+#pragma mark - UIViewLifeCycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.fetchResults = [MBPin fetchedResultsFromStore];

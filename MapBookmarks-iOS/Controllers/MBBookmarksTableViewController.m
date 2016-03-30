@@ -27,8 +27,11 @@
 
 @implementation MBBookmarksTableViewController
 
+#pragma mark - UIViewLifeCycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.fetchResults = [MBPin fetchedResultsFromStore];
     self.fetchResults.delegate = self;
     self.context = [MBCoreDataStack sharedManager].mainContext;
@@ -36,8 +39,10 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:YES];
+    
     [self.context rollback];
 }
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -91,13 +96,9 @@
     [self.tableView beginUpdates];
 }
 
-- (void)controller:(NSFetchedResultsController *)controller
-   didChangeObject:(id)anObject
-       atIndexPath:(NSIndexPath *)indexPath
-     forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath {
-    
-    switch(type) {
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath
+     forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+        switch(type) {
         case NSFetchedResultsChangeInsert:
             [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]
                                   withRowAnimation:UITableViewRowAnimationFade];
@@ -125,12 +126,6 @@
     [self.tableView endUpdates];
 }
 
-- (void)configureCell:(UITableViewCell *)cell {
-    MBPin *pin = [self.fetchResults objectAtIndexPath:self.tableView.indexPathForSelectedRow];
-    cell.textLabel.text = pin.title;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%f, %f", pin.coordinate.latitude, pin.coordinate.longitude];
-}
-
 #pragma mark - Handle Events
 
 - (IBAction)editButtonDidPress:(UIBarButtonItem *)sender {
@@ -145,6 +140,8 @@
     }
 }
 
+#pragma mark - Helpers
+
 - (void) checkForBookmarks {
     if (!self.fetchResults.fetchedObjects.count && !self.tableView.isEditing) {
         self.editButton.enabled = NO;
@@ -152,4 +149,11 @@
         self.editButton.enabled = YES;
     }
 }
+
+- (void)configureCell:(UITableViewCell *)cell {
+    MBPin *pin = [self.fetchResults objectAtIndexPath:self.tableView.indexPathForSelectedRow];
+    cell.textLabel.text = pin.title;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%f, %f", pin.coordinate.latitude, pin.coordinate.longitude];
+}
+
 @end

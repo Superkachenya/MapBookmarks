@@ -14,6 +14,7 @@
 @property (assign, nonatomic) double latitude;
 @property (assign, nonatomic) double longitude;
 
-- (void) getPlace:(id)place;
+
+- (instancetype)initWithPlace:(id)place;
 
 @end

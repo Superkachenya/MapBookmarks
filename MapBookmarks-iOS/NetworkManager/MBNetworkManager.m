@@ -26,8 +26,7 @@ NSString *const token = @"&oauth_token=A5ZDWL2DLXPZCQ3ZJESVOAKDMPQHSNNVWC3UMVOUO
              NSArray *venues = [responseObject valueForKeyPath:@"response.venues"];
              NSMutableArray *places = [NSMutableArray new];
              for (id place in venues) {
-                 MBPlace *newPlace = [MBPlace new];
-                 [newPlace getPlace:place];
+                 MBPlace *newPlace = [[MBPlace alloc] initWithPlace:place];
                  [places addObject:newPlace];
              }
              copyBlock(places, nil);

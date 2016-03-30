@@ -15,6 +15,7 @@
 #import "MBPin.h"
 
 @interface MBButtonsViewController ()
+
 @property (weak, nonatomic) IBOutlet UILabel *TitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *loadPlacesButton;
@@ -24,12 +25,14 @@
 
 @implementation MBButtonsViewController
 
+#pragma mark - UIViewLifeCycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self updateView];
 }
 
-# pragma mark - Handle events
+# pragma mark - HandleEvents
 
 - (IBAction)centerButtonDidPress:(id)sender {
     self.centerButton(self.pin);

@@ -26,6 +26,8 @@
 
 @implementation MBNearbyPlacesViewController
 
+#pragma mark - UIViewLifeCycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [MBNetworkManager downloadNearbyPlacesUsingPin:self.pin completion:^(NSArray *places, NSError *error) {
@@ -36,10 +38,6 @@
         [self.tableView reloadData];
         }
     }];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
 
 #pragma mark - UITableViewDataSource

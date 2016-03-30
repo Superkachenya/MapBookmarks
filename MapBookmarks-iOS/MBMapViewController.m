@@ -43,6 +43,8 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
 
 @implementation MBMapViewController
 
+#pragma mark - UIViewLifeCycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -150,7 +152,7 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
 - (IBAction)prepareForUnwindToMap:(UIStoryboardSegue *)segue {
     
 }
-#pragma mark - Map manipulations
+#pragma mark - MapManipulations
 
 - (void)zoomToPolyLine:(MKMapView *)map polyline:(MKPolyline*)polyline animated: (BOOL)animated {
     [map setVisibleMapRect:[polyline boundingMapRect] edgePadding:UIEdgeInsetsMake(25.0, 25.0, 25.0, 25.0) animated:animated];
