@@ -125,6 +125,11 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
                 [self checkMapForPins];
                 break;
             case NSFetchedResultsChangeDelete:
+                if (self.isRouteMode) {
+                    [self.mapView removeOverlays:self.mapView.overlays];
+                    self.isRouteMode = NO;
+                    self.routeButton.title = kRoute;
+                }
                 [self.mapView removeAnnotation:anObject];
                 [self checkMapForPins];
                 break;
@@ -158,6 +163,7 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
 - (IBAction)prepareForUnwindToMap:(UIStoryboardSegue *)segue {
     
 }
+
 #pragma mark - MapManipulations
 
 - (void)zoomToPolyLine:(MKMapView *)map polyline:(MKPolyline*)polyline animated: (BOOL)animated {
