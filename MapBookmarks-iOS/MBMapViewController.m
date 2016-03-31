@@ -38,6 +38,7 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
 @property (strong, nonatomic) NSFetchedResultsController *fetchResults;
 @property (strong, nonatomic) MBPin *transitPin;
 @property (strong, nonatomic) MBPin *routePin;
+@property (assign, nonatomic) BOOL isRouteMode;
 
 @end
 
@@ -59,14 +60,16 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
     [self.locationManager startUpdatingLocation];
     [self.mapView addAnnotations:self.fetchResults.fetchedObjects];
     [self checkMapForPins];
+    self.isRouteMode = NO;
 }
 
 #pragma mark - MKMapViewDelegate
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
-    if ([self.routeButton.title isEqualToString:kClean]) {
+    if (self.isRouteMode) {
         [self redrawRoute];
     } else {
+        [self.mapView removeOverlays:self.mapView.overlays];
         MKMapCamera *camera = [MKMapCamera cameraLookingAtCenterCoordinate:userLocation.coordinate
                                                          fromEyeCoordinate:CLLocationCoordinate2DMake(userLocation.coordinate.latitude,
                                                                                                       userLocation.coordinate.longitude)
@@ -162,6 +165,7 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
 }
 
 - (void)drawRouteFromUserToPin:(MBPin *)pin {
+    self.isRouteMode = YES;
     self.routeButton.title = kClean;
     self.bookmarksButton.enabled = NO;
     self.routePin = pin;
@@ -186,6 +190,8 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
     [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
         if (error) {
             [self createAlertForError:error InViewController:self];
+            [self.mapView removeOverlays:self.mapView.overlays];
+            self.routeButton.title = kRoute;
         } else {
             [self.mapView removeOverlays:[self.mapView overlays]];
             MKRoute *route = response.routes.firstObject;
@@ -218,6 +224,8 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
 - (IBAction)userDidAddPin:(UILongPressGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateEnded) {
         return;
+    } else if ([self.routeButton.title isEqualToString:kClean]) {
+        return;
     } else {
         NSManagedObjectContext *context = [MBCoreDataStack sharedManager].mainContext;
         MBPin *pin = [NSEntityDescription insertNewObjectForEntityForName:@"MBPin"
@@ -232,7 +240,7 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
 }
 
 - (IBAction)routeButtonDidTap:(UIBarButtonItem *)sender {
-    if ([sender.title isEqualToString:kClean]) {
+    if (self.isRouteMode) {
         [self.mapView removeOverlays:self.mapView.overlays];
         for (id<MKAnnotation> annotation in self.mapView.annotations) {
             if ([annotation isKindOfClass:[MBPin class]]) {
@@ -240,7 +248,7 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
                 anView.hidden = NO;
             }
         }
-        [self.mapView setCenterCoordinate:self.mapView.userLocation.location.coordinate animated:YES];
+        self.isRouteMode = NO;
         sender.title = kRoute;
         self.bookmarksButton.enabled = YES;
     } else {
