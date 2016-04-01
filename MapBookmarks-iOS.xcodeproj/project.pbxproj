@@ -153,8 +153,10 @@
 				8E1797AD1CA2943300206FCD /* AppDelegate.h */,
 				8E1797AE1CA2943300206FCD /* AppDelegate.m */,
 				8E1797DE1CA2DA8C00206FCD /* NetworkManager */,
+				8EE20F7D1CA5407900DF560A /* ViewHelpers */,
 				8E1797DA1CA2DA4900206FCD /* Controllers */,
 				8E1797D91CA2B27500206FCD /* Model */,
+				8E1797D41CA2974F00206FCD /* CoreDataStack */,
 				8E1797B31CA2943400206FCD /* Main.storyboard */,
 				8E1797B61CA2943400206FCD /* Assets.xcassets */,
 				8E1797B81CA2943400206FCD /* LaunchScreen.storyboard */,
@@ -195,12 +197,9 @@
 		8E1797D91CA2B27500206FCD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8E1797E71CA30A6D00206FCD /* MBPlace.h */,
-				8E1797E81CA30A6D00206FCD /* MBPlace.m */,
-				8EE20F831CA59BEA00DF560A /* MBPin.h */,
-				8EE20F841CA59BEA00DF560A /* MBPin.m */,
-				8EE20F871CA59F4D00DF560A /* CoreData */,
-				8E1797D41CA2974F00206FCD /* CoreDataStack */,
+				8E951F7F1CAE69280028089F /* Place */,
+				8E951F801CAE69330028089F /* Pin */,
+				8EE20F871CA59F4D00DF560A /* PinCoreData */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -208,9 +207,7 @@
 		8E1797DA1CA2DA4900206FCD /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8EE20F7D1CA5407900DF560A /* Helpers */,
-				8E1797B01CA2943300206FCD /* MBMapViewController.h */,
-				8E1797B11CA2943300206FCD /* MBMapViewController.m */,
+				8E951F7B1CAE67330028089F /* MapController */,
 				8EE20F731CA530C600DF560A /* Bookmarks */,
 				8EDD3F7D1CA6AF5C007D81D4 /* Buttons */,
 				8EDD3F7C1CA6AE74007D81D4 /* NearbyPlaces */,
@@ -226,6 +223,60 @@
 				8E1797DC1CA2DA8900206FCD /* MBNetworkManager.m */,
 			);
 			name = NetworkManager;
+			sourceTree = "<group>";
+		};
+		8E951F7B1CAE67330028089F /* MapController */ = {
+			isa = PBXGroup;
+			children = (
+				8E1797B01CA2943300206FCD /* MBMapViewController.h */,
+				8E1797B11CA2943300206FCD /* MBMapViewController.m */,
+			);
+			name = MapController;
+			sourceTree = "<group>";
+		};
+		8E951F7C1CAE68B80028089F /* MKAnnotationViewCategory */ = {
+			isa = PBXGroup;
+			children = (
+				8EE93A231CA7EFF2005BE79F /* UIView+MKAnnotationView.h */,
+				8EE93A241CA7EFF2005BE79F /* UIView+MKAnnotationView.m */,
+			);
+			name = MKAnnotationViewCategory;
+			sourceTree = "<group>";
+		};
+		8E951F7D1CAE68E30028089F /* ErrorAlertCategory */ = {
+			isa = PBXGroup;
+			children = (
+				8E9AB0261CABB25300B37A3C /* UIViewController+MBErrorAlert.h */,
+				8E9AB0271CABB25300B37A3C /* UIViewController+MBErrorAlert.m */,
+			);
+			name = ErrorAlertCategory;
+			sourceTree = "<group>";
+		};
+		8E951F7E1CAE68F40028089F /* StoryBoardConstants */ = {
+			isa = PBXGroup;
+			children = (
+				8EE20F7A1CA5407400DF560A /* MBStoryboardConstants.h */,
+				8EE20F7B1CA5407400DF560A /* MBStoryboardConstants.m */,
+			);
+			name = StoryBoardConstants;
+			sourceTree = "<group>";
+		};
+		8E951F7F1CAE69280028089F /* Place */ = {
+			isa = PBXGroup;
+			children = (
+				8E1797E71CA30A6D00206FCD /* MBPlace.h */,
+				8E1797E81CA30A6D00206FCD /* MBPlace.m */,
+			);
+			name = Place;
+			sourceTree = "<group>";
+		};
+		8E951F801CAE69330028089F /* Pin */ = {
+			isa = PBXGroup;
+			children = (
+				8EE20F831CA59BEA00DF560A /* MBPin.h */,
+				8EE20F841CA59BEA00DF560A /* MBPin.m */,
+			);
+			name = Pin;
 			sourceTree = "<group>";
 		};
 		8EB57D591CA44E2900CB2568 /* Route */ = {
@@ -264,27 +315,24 @@
 			name = Bookmarks;
 			sourceTree = "<group>";
 		};
-		8EE20F7D1CA5407900DF560A /* Helpers */ = {
+		8EE20F7D1CA5407900DF560A /* ViewHelpers */ = {
 			isa = PBXGroup;
 			children = (
-				8EE20F7A1CA5407400DF560A /* MBStoryboardConstants.h */,
-				8EE20F7B1CA5407400DF560A /* MBStoryboardConstants.m */,
-				8EE93A231CA7EFF2005BE79F /* UIView+MKAnnotationView.h */,
-				8EE93A241CA7EFF2005BE79F /* UIView+MKAnnotationView.m */,
-				8E9AB0261CABB25300B37A3C /* UIViewController+MBErrorAlert.h */,
-				8E9AB0271CABB25300B37A3C /* UIViewController+MBErrorAlert.m */,
+				8E951F7E1CAE68F40028089F /* StoryBoardConstants */,
+				8E951F7C1CAE68B80028089F /* MKAnnotationViewCategory */,
+				8E951F7D1CAE68E30028089F /* ErrorAlertCategory */,
 			);
-			name = Helpers;
+			name = ViewHelpers;
 			sourceTree = "<group>";
 		};
-		8EE20F871CA59F4D00DF560A /* CoreData */ = {
+		8EE20F871CA59F4D00DF560A /* PinCoreData */ = {
 			isa = PBXGroup;
 			children = (
 				8EE20F7E1CA59B7100DF560A /* MBPin.xcdatamodeld */,
 				8EE20F811CA59BEA00DF560A /* MBPin+CoreDataProperties.h */,
 				8EE20F821CA59BEA00DF560A /* MBPin+CoreDataProperties.m */,
 			);
-			name = CoreData;
+			name = PinCoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -15,7 +15,7 @@
 #import "MBButtonsViewController.h"
 #import "MBPin.h"
 
-@interface MBBookmarksTableViewController ()
+@interface MBBookmarksTableViewController () <UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
@@ -35,6 +35,12 @@
     self.fetchResults = [MBPin fetchedResultsFromStore];
     self.fetchResults.delegate = self;
     self.context = [MBCoreDataStack sharedManager].mainContext;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    
+    [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -82,7 +88,7 @@
         MBMapViewController *map = [[self.navigationController viewControllers]firstObject];
         buttonsVC.pin = pin;
         buttonsVC.routeButton = ^(MBPin *pin) {
-            [map drawRouteFromUserToPin:pin];
+            [map drawRouteFromUserToPin:pin WithZoom:YES];
         };
         buttonsVC.centerButton = ^(MBPin *pin) {
             [map centerOnPin:pin];

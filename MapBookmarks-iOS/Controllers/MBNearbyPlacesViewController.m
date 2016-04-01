@@ -16,7 +16,7 @@
 #import "MBNetworkManager.h"
 #import "UIViewController+MBErrorAlert.h"
 
-@interface MBNearbyPlacesViewController ()
+@interface MBNearbyPlacesViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 

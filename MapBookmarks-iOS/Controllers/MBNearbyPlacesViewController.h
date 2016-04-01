@@ -9,7 +9,7 @@
 @import UIKit;
 @class MBPin;
 
-@interface MBNearbyPlacesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface MBNearbyPlacesViewController : UIViewController 
 
 @property (strong, nonatomic) MBPin *pin;
 

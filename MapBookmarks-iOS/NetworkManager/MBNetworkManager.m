@@ -13,6 +13,7 @@
 
 NSString *const baseURL = @"https://api.foursquare.com/v2/venues/search?ll=";
 NSString *const token = @"&oauth_token=A5ZDWL2DLXPZCQ3ZJESVOAKDMPQHSNNVWC3UMVOUOXPQHWRT&v=20121105";
+
 @implementation MBNetworkManager
 
 + (void)downloadNearbyPlacesUsingPin:(MBPin *)pin completion:(MBCompletionDownload)block {

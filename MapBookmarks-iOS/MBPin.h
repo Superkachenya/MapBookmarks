@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic, readonly) CLLocationCoordinate2D coordinate;
 
 + (NSFetchedResultsController *)fetchedResultsFromStore;
+
 - (void)updatePinWithPlace:(MBPlace *)place;
 
 @end

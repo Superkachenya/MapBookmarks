@@ -22,8 +22,8 @@
 #import "NSManagedObjectContext+MBSave.h"
 #import "UIViewController+MBErrorAlert.h"
 
-NSString *const kRoute   = @"Route";
-NSString *const kClean   = @"Clean Route";
+NSString *const kRoute = @"Route";
+NSString *const kClean = @"Clean Route";
 NSString *const kUnnamed = @"Unnamed";
 NSString *const kPinIdentifier = @"kPinIdentifier";
 
@@ -128,12 +128,7 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
                 if (self.isInRouteMode) {
                     [self.mapView removeOverlays:self.mapView.overlays];
                     [self changeRouteModeTypeTo:NO];
-                    for (id<MKAnnotation> annotation in self.mapView.annotations) {
-                        if ([annotation isKindOfClass:[MBPin class]]) {
-                            MKAnnotationView* anView = [self.mapView viewForAnnotation: annotation];
-                            anView.hidden = NO;
-                        }
-                    }
+                    [self makeAnnotationsVisible];
                     [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:YES];
                 }
                 [self.mapView removeAnnotation:anObject];
@@ -158,7 +153,7 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
         MBButtonsViewController *buttonsVC = [segue destinationViewController];
         buttonsVC.pin = self.transitPin;
         buttonsVC.routeButton = ^(MBPin *pin) {
-            [self drawRouteFromUserToPin:pin];
+            [self drawRouteFromUserToPin:pin WithZoom:YES];
         };
         buttonsVC.centerButton = ^(MBPin *pin) {
             [self centerOnPin:pin];
@@ -176,7 +171,7 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
     [map setVisibleMapRect:[polyline boundingMapRect] edgePadding:UIEdgeInsetsMake(25.0, 25.0, 25.0, 25.0) animated:animated];
 }
 
-- (void)drawRouteFromUserToPin:(MBPin *)pin {
+- (void)drawRouteFromUserToPin:(MBPin *)pin WithZoom:(BOOL)zoom {
     [self changeRouteModeTypeTo:YES];
     self.routePin = pin;
     CLLocationDegrees latitude = pin.coordinate.latitude;
@@ -201,32 +196,24 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
         if (error) {
             [self createAlertForError:error InViewController:self];
             [self.mapView removeOverlays:self.mapView.overlays];
-            self.routeButton.title = kRoute;
+            [self changeRouteModeTypeTo:NO];
         } else {
             [self.mapView removeOverlays:[self.mapView overlays]];
             MKRoute *route = response.routes.firstObject;
             [self.mapView addOverlays:@[route.polyline] level:MKOverlayLevelAboveLabels];
-            [self zoomToPolyLine:self.mapView polyline:route.polyline animated:YES];
+            if (zoom) {
+                [self zoomToPolyLine:self.mapView polyline:route.polyline animated:YES];
+            }
         }
     }];
 }
 
 - (void)redrawRoute {
-    [self drawRouteFromUserToPin:self.routePin];
+    [self drawRouteFromUserToPin:self.routePin WithZoom:NO];
 }
 
 - (void)centerOnPin:(MBPin *)pin {
     [self.mapView setCenterCoordinate:pin.coordinate animated:YES];
-}
-
-- (void)checkMapForPins {
-    if (!self.fetchResults.fetchedObjects.count) {
-        self.routeButton.enabled = NO;
-        self.bookmarksButton.enabled = NO;
-    } else {
-        self.routeButton.enabled = YES;
-        self.bookmarksButton.enabled = YES;
-    }
 }
 
 #pragma mark - HandleEvents
@@ -253,18 +240,13 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
     if (self.isInRouteMode) {
         [self.mapView removeOverlays:self.mapView.overlays];
         [self changeRouteModeTypeTo:NO];
-        for (id<MKAnnotation> annotation in self.mapView.annotations) {
-            if ([annotation isKindOfClass:[MBPin class]]) {
-                MKAnnotationView* anView = [self.mapView viewForAnnotation: annotation];
-                anView.hidden = NO;
-            }
-        }
+        [self makeAnnotationsVisible];
     } else {
         MBRouteViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:IDMBContentViewController];
         controller.preferredContentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height /2);
         controller.modalInPopover = NO;
         controller.drawRouteBlock = ^(MBPin *pin) {
-            [self drawRouteFromUserToPin:pin];
+            [self drawRouteFromUserToPin:pin WithZoom:YES];
             [self.popover dismissPopoverAnimated:YES];
         };
         self.popover = [[WYPopoverController alloc] initWithContentViewController:controller];
@@ -283,10 +265,31 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
     [self performSegueWithIdentifier:toMBButtonsVCFromPin sender:self];
 }
 
+#pragma mark - Helpers
+
+- (void)checkMapForPins {
+    if (!self.fetchResults.fetchedObjects.count) {
+        self.routeButton.enabled = NO;
+        self.bookmarksButton.enabled = NO;
+    } else {
+        self.routeButton.enabled = YES;
+        self.bookmarksButton.enabled = YES;
+    }
+}
+
 - (void)changeRouteModeTypeTo:(BOOL)type {
     self.isInRouteMode = type;
     self.bookmarksButton.enabled = !type;
     self.routeButton.title = type ? kClean : kRoute;
+}
+
+- (void) makeAnnotationsVisible {
+    for (id<MKAnnotation> annotation in self.mapView.annotations) {
+        if ([annotation isKindOfClass:[MBPin class]]) {
+            MKAnnotationView* anView = [self.mapView viewForAnnotation: annotation];
+            anView.hidden = NO;
+        }
+    }
 }
 
 @end

@@ -11,7 +11,7 @@
 
 @interface MBMapViewController : UIViewController
 
-- (void)drawRouteFromUserToPin:(MBPin *)pin;
+- (void)drawRouteFromUserToPin:(MBPin *)pin WithZoom:(BOOL)zoom;
 - (void)centerOnPin:(MBPin *)pin;
 
 @end

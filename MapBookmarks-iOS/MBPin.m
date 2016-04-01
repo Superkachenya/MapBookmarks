@@ -18,16 +18,10 @@
     return _coordinate;
 }
 
--(void)setCoordinate:(CLLocationCoordinate2D)newCoordinate {
+- (void)setCoordinate:(CLLocationCoordinate2D)newCoordinate {
     self.latitude = @(newCoordinate.latitude);
     self.longitude = @(newCoordinate.longitude);
     _coordinate = newCoordinate;
-}
-
-- (void)updatePinWithPlace:(MBPlace *)place {
-    self.title = place.title;
-    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(place.latitude, place.longitude);
-    self.coordinate = location;
 }
 
 + (NSFetchedResultsController *)fetchedResultsFromStore {
@@ -42,6 +36,12 @@
     NSError *error = nil;
     [results performFetch:&error];
     return results;
+}
+
+- (void)updatePinWithPlace:(MBPlace *)place {
+    self.title = place.title;
+    CLLocationCoordinate2D location = CLLocationCoordinate2DMake(place.latitude, place.longitude);
+    self.coordinate = location;
 }
 
 @end
