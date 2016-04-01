@@ -38,7 +38,7 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
 @property (strong, nonatomic) NSFetchedResultsController *fetchResults;
 @property (strong, nonatomic) MBPin *transitPin;
 @property (strong, nonatomic) MBPin *routePin;
-@property (assign, nonatomic) BOOL isRouteMode;
+@property (assign, nonatomic) BOOL isInRouteMode;
 
 @end
 
@@ -60,21 +60,21 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
     [self.locationManager startUpdatingLocation];
     [self.mapView addAnnotations:self.fetchResults.fetchedObjects];
     [self checkMapForPins];
-    self.isRouteMode = NO;
+    [self changeRouteModeTypeTo:NO];
 }
 
 #pragma mark - MKMapViewDelegate
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
-    if (self.isRouteMode) {
-        [self redrawRoute];
-    } else {
+    if (!self.isInRouteMode) {
         [self.mapView removeOverlays:self.mapView.overlays];
         MKMapCamera *camera = [MKMapCamera cameraLookingAtCenterCoordinate:userLocation.coordinate
                                                          fromEyeCoordinate:CLLocationCoordinate2DMake(userLocation.coordinate.latitude,
                                                                                                       userLocation.coordinate.longitude)
                                                                eyeAltitude:kCLLocationAccuracyKilometer];
         [self.mapView setCamera:camera animated:YES];
+    } else {
+        [self redrawRoute];
     }
 }
 
@@ -125,10 +125,16 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
                 [self checkMapForPins];
                 break;
             case NSFetchedResultsChangeDelete:
-                if (self.isRouteMode) {
+                if (self.isInRouteMode) {
                     [self.mapView removeOverlays:self.mapView.overlays];
-                    self.isRouteMode = NO;
-                    self.routeButton.title = kRoute;
+                    [self changeRouteModeTypeTo:NO];
+                    for (id<MKAnnotation> annotation in self.mapView.annotations) {
+                        if ([annotation isKindOfClass:[MBPin class]]) {
+                            MKAnnotationView* anView = [self.mapView viewForAnnotation: annotation];
+                            anView.hidden = NO;
+                        }
+                    }
+                    [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:YES];
                 }
                 [self.mapView removeAnnotation:anObject];
                 [self checkMapForPins];
@@ -171,9 +177,7 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
 }
 
 - (void)drawRouteFromUserToPin:(MBPin *)pin {
-    self.isRouteMode = YES;
-    self.routeButton.title = kClean;
-    self.bookmarksButton.enabled = NO;
+    [self changeRouteModeTypeTo:YES];
     self.routePin = pin;
     CLLocationDegrees latitude = pin.coordinate.latitude;
     CLLocationDegrees longitude = pin.coordinate.longitude;
@@ -246,17 +250,15 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
 }
 
 - (IBAction)routeButtonDidTap:(UIBarButtonItem *)sender {
-    if (self.isRouteMode) {
+    if (self.isInRouteMode) {
         [self.mapView removeOverlays:self.mapView.overlays];
+        [self changeRouteModeTypeTo:NO];
         for (id<MKAnnotation> annotation in self.mapView.annotations) {
             if ([annotation isKindOfClass:[MBPin class]]) {
                 MKAnnotationView* anView = [self.mapView viewForAnnotation: annotation];
                 anView.hidden = NO;
             }
         }
-        self.isRouteMode = NO;
-        sender.title = kRoute;
-        self.bookmarksButton.enabled = YES;
     } else {
         MBRouteViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:IDMBContentViewController];
         controller.preferredContentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height /2);
@@ -279,6 +281,12 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
     MKAnnotationView *annotationView = [sender superAnnotationView];
     self.transitPin = (MBPin *)annotationView.annotation;
     [self performSegueWithIdentifier:toMBButtonsVCFromPin sender:self];
+}
+
+- (void)changeRouteModeTypeTo:(BOOL)type {
+    self.isInRouteMode = type;
+    self.bookmarksButton.enabled = !type;
+    self.routeButton.title = type ? kClean : kRoute;
 }
 
 @end
