@@ -59,8 +59,13 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
     }
     [self.locationManager startUpdatingLocation];
     [self.mapView addAnnotations:self.fetchResults.fetchedObjects];
-    [self checkMapForPins];
     [self changeRouteModeTypeTo:NO];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    
+    [self checkMapForPins];
 }
 
 #pragma mark - MKMapViewDelegate
@@ -132,7 +137,6 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
                     [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:YES];
                 }
                 [self.mapView removeAnnotation:anObject];
-                [self checkMapForPins];
                 break;
             case NSFetchedResultsChangeUpdate:
                 break;
