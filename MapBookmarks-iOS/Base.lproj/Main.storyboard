@@ -223,8 +223,10 @@
                     <connections>
                         <outlet property="TitleLabel" destination="ueR-dc-13m" id="ZBt-MQ-rW2"/>
                         <outlet property="containerView" destination="bz9-A4-Bbq" id="GON-cY-siw"/>
+                        <outlet property="drawRouteButton" destination="UUG-8d-l2M" id="4Hv-UV-0Gl"/>
                         <outlet property="loadPlacesButton" destination="yec-q4-RMe" id="Bpz-ii-y3L"/>
                         <outlet property="locationLabel" destination="hcv-Qd-eGf" id="sUE-7n-UNB"/>
+                        <outlet property="trashButton" destination="0PD-KM-uvt" id="qbS-Pc-RDy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lsy-VK-to3" userLabel="First Responder" sceneMemberID="firstResponder"/>

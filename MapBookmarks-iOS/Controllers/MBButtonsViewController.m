@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *loadPlacesButton;
 @property (weak, nonatomic) IBOutlet UIView *containerView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *trashButton;
+@property (weak, nonatomic) IBOutlet UIButton *drawRouteButton;
 
 @end
 
@@ -30,6 +32,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self updateView];
+    if (self.isInRouteMode) {
+        self.drawRouteButton.hidden = YES;
+        self.trashButton.enabled = NO;
+    } else {
+        self.drawRouteButton.hidden = NO;
+        self.trashButton.enabled = YES;
+
+    }
 }
 
 # pragma mark - HandleEvents

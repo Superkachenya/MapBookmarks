@@ -156,6 +156,7 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
     if ([segue.identifier isEqualToString:toMBButtonsVCFromPin]) {
         MBButtonsViewController *buttonsVC = [segue destinationViewController];
         buttonsVC.pin = self.transitPin;
+        buttonsVC.isInRouteMode = self.isInRouteMode;
         buttonsVC.routeButton = ^(MBPin *pin) {
             [self drawRouteFromUserToPin:pin WithZoom:YES];
         };
