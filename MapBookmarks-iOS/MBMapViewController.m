@@ -39,6 +39,8 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
 @property (strong, nonatomic) MBPin *transitPin;
 @property (strong, nonatomic) MBPin *routePin;
 @property (assign, nonatomic) BOOL isInRouteMode;
+@property (assign, nonatomic) BOOL isCenterToUser;
+
 
 @end
 
@@ -60,12 +62,19 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
     [self.locationManager startUpdatingLocation];
     [self.mapView addAnnotations:self.fetchResults.fetchedObjects];
     [self changeRouteModeTypeTo:NO];
+    self.isCenterToUser = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     
     [self checkMapForPins];
+    if (self.isInRouteMode) {
+        self.bookmarksButton.enabled = NO;
+    } else {
+        self.bookmarksButton.enabled = YES;
+        
+    }
 }
 
 #pragma mark - MKMapViewDelegate
@@ -73,11 +82,14 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
     if (!self.isInRouteMode) {
         [self.mapView removeOverlays:self.mapView.overlays];
-        MKMapCamera *camera = [MKMapCamera cameraLookingAtCenterCoordinate:userLocation.coordinate
-                                                         fromEyeCoordinate:CLLocationCoordinate2DMake(userLocation.coordinate.latitude,
-                                                                                                      userLocation.coordinate.longitude)
-                                                               eyeAltitude:kCLLocationAccuracyKilometer];
-        [self.mapView setCamera:camera animated:YES];
+        if (self.isCenterToUser) {
+            MKMapCamera *camera = [MKMapCamera cameraLookingAtCenterCoordinate:userLocation.coordinate
+                                                             fromEyeCoordinate:CLLocationCoordinate2DMake(userLocation.coordinate.latitude,
+                                                                                                          userLocation.coordinate.longitude)
+                                                                   eyeAltitude:kCLLocationAccuracyKilometer];
+            [self.mapView setCamera:camera animated:YES];
+            self.isCenterToUser = NO;
+        }
     } else {
         [self redrawRoute];
     }
@@ -130,12 +142,6 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
                 [self checkMapForPins];
                 break;
             case NSFetchedResultsChangeDelete:
-                if (self.isInRouteMode) {
-                    [self.mapView removeOverlays:self.mapView.overlays];
-                    [self changeRouteModeTypeTo:NO];
-                    [self makeAnnotationsVisible];
-                    [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:YES];
-                }
                 [self.mapView removeAnnotation:anObject];
                 break;
             case NSFetchedResultsChangeUpdate:
