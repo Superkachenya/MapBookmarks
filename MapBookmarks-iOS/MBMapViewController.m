@@ -55,7 +55,6 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
     self.fetchResults.delegate = self;
     self.locationManager = [CLLocationManager new];
     self.locationManager.delegate = self;
-    [self.locationManager requestAlwaysAuthorization];
     if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
         [self.locationManager requestAlwaysAuthorization];
     }
