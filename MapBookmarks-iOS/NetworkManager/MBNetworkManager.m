@@ -16,23 +16,30 @@ NSString *const token = @"&oauth_token=A5ZDWL2DLXPZCQ3ZJESVOAKDMPQHSNNVWC3UMVOUO
 
 @implementation MBNetworkManager
 
-+ (void)downloadNearbyPlacesUsingPin:(MBPin *)pin completion:(MBCompletionDownload)block {
-    MBCompletionDownload copyBlock = [block copy];
++ (void)downloadNearbyPlacesUsingPin:(MBPin *)pin completion:(MBCompletionDownload)completion {
+
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    NSString *string = [NSString stringWithFormat:@"%@%f,%f&limit=10%@",baseURL, pin.coordinate.latitude, pin.coordinate.longitude, token];
-    [manager GET:string
+    NSString *routeString = [NSString stringWithFormat:@"%@%f,%f&limit=10%@",baseURL, pin.coordinate.latitude, pin.coordinate.longitude, token];
+    [manager GET:routeString
       parameters:nil
         progress:nil
          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-             NSArray *venues = [responseObject valueForKeyPath:@"response.venues"];
-             NSMutableArray *places = [NSMutableArray new];
-             for (id place in venues) {
-                 MBPlace *newPlace = [[MBPlace alloc] initWithPlace:place];
-                 [places addObject:newPlace];
+             if ([responseObject isKindOfClass:[NSDictionary class]]) {
+                 NSArray *venues = [responseObject valueForKeyPath:@"response.venues"];
+                 NSMutableArray *places = [NSMutableArray new];
+                 for (id place in venues) {
+                     MBPlace *newPlace = [[MBPlace alloc] initWithPlace:place];
+                     [places addObject:newPlace];
+                 }
+                 if (completion) {
+                     completion(places, nil);
+                 }
              }
-             copyBlock(places, nil);
+
          } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-             copyBlock(nil, error);
+             if (completion) {
+                 completion(nil, error);
+             }
          }];
 }
 

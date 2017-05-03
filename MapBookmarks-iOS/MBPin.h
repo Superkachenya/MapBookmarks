@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchedResultsController *)fetchedResultsFromStore;
 
++ (void)addNewPinWithTitle:(NSString *)title coordinates:(CLLocationCoordinate2D)coordinates;
+
 - (void)updatePinWithPlace:(MBPlace *)place;
 
 @end

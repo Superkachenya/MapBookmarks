@@ -38,18 +38,22 @@
     } else {
         self.drawRouteButton.hidden = NO;
         self.trashButton.enabled = YES;
-
+        
     }
 }
 
 # pragma mark - HandleEvents
 
 - (IBAction)centerButtonDidPress:(id)sender {
-    self.centerButton(self.pin);
+    if (self.centerActionBlock) {
+        self.centerActionBlock(self.pin);
+    }
 }
 
 - (IBAction)drawRouteDidPress:(id)sender {
-    self.routeButton(self.pin);
+    if (self.routeActionBlock) {
+        self.routeActionBlock(self.pin);
+    }
 }
 
 - (IBAction)loadNearbyPlacesDidPress:(id)sender {
@@ -59,7 +63,7 @@
 
 - (IBAction)trashButtonDidPress:(id)sender {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Are you shure?"
-                                                                   message:@"You realy want to delete this pin?"
+                                                                   message:@"Do you realy want to delete this pin?"
                                                             preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
                                                      style:UIAlertActionStyleDefault
@@ -67,13 +71,14 @@
                                                        [alert dismissViewControllerAnimated:YES
                                                                                  completion:nil];
                                                    }];
+    __weak typeof(self)weakSelf = self;
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Ok"
                                                  style:UIAlertActionStyleDefault
                                                handler:^(UIAlertAction * _Nonnull action) {
                                                    NSManagedObjectContext *context = [MBCoreDataStack sharedManager].mainContext;
-                                                   [context deleteObject:self.pin];
+                                                   [context deleteObject:weakSelf.pin];
                                                    [context saveContext];
-                                                   [self performSegueWithIdentifier:unwindToMapVC sender:self];
+                                                   [weakSelf performSegueWithIdentifier:unwindToMapVC sender:self];
                                                }];
     [alert addAction:cancel];
     [alert addAction:ok];

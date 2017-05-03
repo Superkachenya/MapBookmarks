@@ -7,9 +7,8 @@
 //
 
 #import "MBNearbyPlacesViewController.h"
-@import CoreData;
+
 #import "MBCoreDataStack.h"
-#import "NSManagedObjectContext+MBSave.h"
 #import "MBStoryboardConstants.h"
 #import "MBPlace.h"
 #import "MBPin.h"
@@ -30,14 +29,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [MBNetworkManager downloadNearbyPlacesUsingPin:self.pin completion:^(NSArray *places, NSError *error) {
-        if (error) {
-            [self createAlertForError:error InViewController:self];
-        } else {
-        self.nearbyPlaces = places;
-        [self.tableView reloadData];
-        }
-    }];
+    
+    [MBNetworkManager downloadNearbyPlacesUsingPin:self.pin
+                                        completion:^(NSArray *places, NSError *error) {
+                                            if (error) {
+                                                [self createAlertForError:error inViewController:self];
+                                            } else {
+                                                self.nearbyPlaces = places;
+                                                [self.tableView reloadData];
+                                            }
+                                        }];
 }
 
 #pragma mark - UITableViewDataSource
@@ -58,8 +59,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MBPlace *place = self.nearbyPlaces[indexPath.row];
     [self.pin updatePinWithPlace:place];
-    NSManagedObjectContext *context = [MBCoreDataStack sharedManager].mainContext;
-    [context saveContext];
     [self performSegueWithIdentifier:unwindToMBButtonsFromNearbyVC sender:self];
 }
 

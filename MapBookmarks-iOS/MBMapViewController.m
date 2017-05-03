@@ -8,7 +8,6 @@
 
 @import MapKit;
 @import CoreLocation;
-@import CoreData;
 #import "MBMapViewController.h"
 #import "MBPin.h"
 #import "WYPopoverController.h"
@@ -72,7 +71,6 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
         self.bookmarksButton.enabled = NO;
     } else {
         self.bookmarksButton.enabled = YES;
-        
     }
 }
 
@@ -162,10 +160,10 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
         MBButtonsViewController *buttonsVC = [segue destinationViewController];
         buttonsVC.pin = self.transitPin;
         buttonsVC.isInRouteMode = self.isInRouteMode;
-        buttonsVC.routeButton = ^(MBPin *pin) {
-            [self drawRouteFromUserToPin:pin WithZoom:YES];
+        buttonsVC.routeActionBlock = ^(MBPin *pin) {
+            [self drawRouteFromUserToPin:pin withZoom:YES];
         };
-        buttonsVC.centerButton = ^(MBPin *pin) {
+        buttonsVC.centerActionBlock = ^(MBPin *pin) {
             [self centerOnPin:pin];
         };
     }
@@ -181,7 +179,7 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
     [map setVisibleMapRect:[polyline boundingMapRect] edgePadding:UIEdgeInsetsMake(25.0, 25.0, 25.0, 25.0) animated:animated];
 }
 
-- (void)drawRouteFromUserToPin:(MBPin *)pin WithZoom:(BOOL)zoom {
+- (void)drawRouteFromUserToPin:(MBPin *)pin withZoom:(BOOL)zoom {
     [self changeRouteModeTypeTo:YES];
     self.routePin = pin;
     CLLocationDegrees latitude = pin.coordinate.latitude;
@@ -204,7 +202,7 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
     MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
     [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
         if (error) {
-            [self createAlertForError:error InViewController:self];
+            [self createAlertForError:error inViewController:self];
             [self.mapView removeOverlays:self.mapView.overlays];
             [self changeRouteModeTypeTo:NO];
         } else {
@@ -219,7 +217,7 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
 }
 
 - (void)redrawRoute {
-    [self drawRouteFromUserToPin:self.routePin WithZoom:NO];
+    [self drawRouteFromUserToPin:self.routePin withZoom:NO];
 }
 
 - (void)centerOnPin:(MBPin *)pin {
@@ -234,15 +232,10 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
     } else if ([self.routeButton.title isEqualToString:kClean]) {
         return;
     } else {
-        NSManagedObjectContext *context = [MBCoreDataStack sharedManager].mainContext;
-        MBPin *pin = [NSEntityDescription insertNewObjectForEntityForName:@"MBPin"
-                                                   inManagedObjectContext:context];
         CGPoint touchPoint = [sender locationInView:self.mapView];
-        CLLocationCoordinate2D location = [self.mapView convertPoint:touchPoint
+        CLLocationCoordinate2D coordinates = [self.mapView convertPoint:touchPoint
                                                 toCoordinateFromView:self.mapView];
-        pin.title = kUnnamed;
-        pin.coordinate = location;
-        [context saveContext];
+        [MBPin addNewPinWithTitle:kUnnamed coordinates:coordinates];
     }
 }
 
@@ -256,7 +249,7 @@ NSString *const kPinIdentifier = @"kPinIdentifier";
         controller.preferredContentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height /2);
         controller.modalInPopover = NO;
         controller.drawRouteBlock = ^(MBPin *pin) {
-            [self drawRouteFromUserToPin:pin WithZoom:YES];
+            [self drawRouteFromUserToPin:pin withZoom:YES];
             [self.popover dismissPopoverAnimated:YES];
         };
         self.popover = [[WYPopoverController alloc] initWithContentViewController:controller];

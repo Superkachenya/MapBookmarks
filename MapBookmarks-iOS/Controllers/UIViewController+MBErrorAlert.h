@@ -10,6 +10,6 @@
 
 @interface UIViewController (MBErrorAlert)
 
-- (void)createAlertForError:(NSError *)error InViewController:(UIViewController *)view;
+- (void)createAlertForError:(NSError *)error inViewController:(UIViewController *)controller;
 
 @end

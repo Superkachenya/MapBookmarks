@@ -11,8 +11,8 @@
 
 @implementation UIView (MKAnnotationView)
 
-- (MKAnnotationView *) superAnnotationView {
-        if ([self isKindOfClass:[MKAnnotationView class]]) {
+- (MKAnnotationView *)superAnnotationView {
+    if ([self isKindOfClass:[MKAnnotationView class]]) {
         return (MKAnnotationView *)self;
     }
     if (!self.superview) {

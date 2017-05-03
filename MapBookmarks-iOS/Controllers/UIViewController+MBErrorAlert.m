@@ -10,7 +10,7 @@
 
 @implementation UIViewController (MBErrorAlert)
 
-- (void)createAlertForError:(NSError *)error InViewController:(UIViewController *)view {
+- (void)createAlertForError:(NSError *)error inViewController:(UIViewController *)controller {
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error!"
                                                                    message:error.localizedDescription
@@ -19,10 +19,10 @@
     UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Ok"
                                                  style:UIAlertActionStyleDefault
                                                handler:^(UIAlertAction * _Nonnull action) {
-                                                   [view dismissViewControllerAnimated:YES completion:nil];
+                                                   [controller dismissViewControllerAnimated:YES completion:nil];
                                                }];
     [alert addAction:ok];
-    [view presentViewController:alert animated:YES completion:nil];
+    [controller presentViewController:alert animated:YES completion:nil];
 }
 
 @end

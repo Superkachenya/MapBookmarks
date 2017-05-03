@@ -87,10 +87,10 @@
         MBButtonsViewController *buttonsVC = [segue destinationViewController];
         MBMapViewController *map = [[self.navigationController viewControllers]firstObject];
         buttonsVC.pin = pin;
-        buttonsVC.routeButton = ^(MBPin *pin) {
-            [map drawRouteFromUserToPin:pin WithZoom:YES];
+        buttonsVC.routeActionBlock = ^(MBPin *pin) {
+            [map drawRouteFromUserToPin:pin withZoom:YES];
         };
-        buttonsVC.centerButton = ^(MBPin *pin) {
+        buttonsVC.centerActionBlock = ^(MBPin *pin) {
             [map centerOnPin:pin];
         };
     }
@@ -148,7 +148,7 @@
 
 #pragma mark - Helpers
 
-- (void) checkForBookmarks {
+- (void)checkForBookmarks {
     if (!self.fetchResults.fetchedObjects.count && !self.tableView.isEditing) {
         self.editButton.enabled = NO;
     } else {

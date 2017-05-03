@@ -6,7 +6,6 @@
 //  Copyright © 2016 Cleveroad. All rights reserved.
 //
 
-@import CoreData;
 #import "MBRouteViewController.h"
 #import "MBStoryboardConstants.h"
 #import "MBPin.h"
@@ -35,6 +34,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kMBPinsOnScreenCellIdentifier];
     MBPin *pin = [self.fetchResults objectAtIndexPath:indexPath];
     cell.textLabel.text = pin.title;

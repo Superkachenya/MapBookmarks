@@ -13,6 +13,6 @@ typedef void(^MBDrawRoutePop)(MBPin *pin);
 
 @interface MBRouteViewController : UIViewController
 
-@property (copy, nonatomic)MBDrawRoutePop drawRouteBlock;
+@property (copy, nonatomic) MBDrawRoutePop drawRouteBlock;
 
 @end

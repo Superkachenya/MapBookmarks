@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D9C18AEC511D0D57F55F9DA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 486A09D0E4E44978B141337B /* libPods.a */; };
+		5DD9BBCA4AEE1ABD986165DB /* libPods-MapBookmarks-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C607A2BECA01D4C10B724BB /* libPods-MapBookmarks-iOS.a */; };
 		8E1797AC1CA2943300206FCD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797AB1CA2943300206FCD /* main.m */; };
 		8E1797AF1CA2943300206FCD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797AE1CA2943300206FCD /* AppDelegate.m */; };
 		8E1797B21CA2943300206FCD /* MBMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E1797B11CA2943300206FCD /* MBMapViewController.m */; };
@@ -43,7 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		486A09D0E4E44978B141337B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		85D27DAA9152DB4253826CFB /* Pods-MapBookmarks-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapBookmarks-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MapBookmarks-iOS/Pods-MapBookmarks-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		8E1797A71CA2943300206FCD /* MapBookmarks-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MapBookmarks-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E1797AB1CA2943300206FCD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8E1797AD1CA2943300206FCD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -85,8 +85,8 @@
 		8EE20F8C1CA5A51600DF560A /* NSManagedObjectContext+MBSave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+MBSave.m"; sourceTree = "<group>"; };
 		8EE93A231CA7EFF2005BE79F /* UIView+MKAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MKAnnotationView.h"; sourceTree = "<group>"; };
 		8EE93A241CA7EFF2005BE79F /* UIView+MKAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MKAnnotationView.m"; sourceTree = "<group>"; };
-		A2DADB760B1262E4A89EAC4D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		B69A5E76DF02F78D07EF5A69 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		9C607A2BECA01D4C10B724BB /* libPods-MapBookmarks-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MapBookmarks-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF73481766BA5EB5E54EA239 /* Pods-MapBookmarks-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MapBookmarks-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-MapBookmarks-iOS/Pods-MapBookmarks-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +95,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E1797D51CA29B4E00206FCD /* MapKit.framework in Frameworks */,
-				2D9C18AEC511D0D57F55F9DA /* libPods.a in Frameworks */,
+				5DD9BBCA4AEE1ABD986165DB /* libPods-MapBookmarks-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,22 +109,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02267F2CB50FC1F06438B41B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				85D27DAA9152DB4253826CFB /* Pods-MapBookmarks-iOS.debug.xcconfig */,
+				BF73481766BA5EB5E54EA239 /* Pods-MapBookmarks-iOS.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		095A0FC4094EEF6738E7F731 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				8E1797CF1CA296E300206FCD /* MapKit.framework */,
-				486A09D0E4E44978B141337B /* libPods.a */,
+				9C607A2BECA01D4C10B724BB /* libPods-MapBookmarks-iOS.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		1727456ECCB8F8AFF6290978 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B69A5E76DF02F78D07EF5A69 /* Pods.debug.xcconfig */,
-				A2DADB760B1262E4A89EAC4D /* Pods.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		8E17979E1CA2943300206FCD = {
@@ -133,8 +133,8 @@
 				8E1797A91CA2943300206FCD /* MapBookmarks-iOS */,
 				8E1797C31CA2943400206FCD /* MapBookmarks-iOSTests */,
 				8E1797A81CA2943300206FCD /* Products */,
-				1727456ECCB8F8AFF6290978 /* Pods */,
 				095A0FC4094EEF6738E7F731 /* Frameworks */,
+				02267F2CB50FC1F06438B41B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -342,12 +342,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8E1797C91CA2943400206FCD /* Build configuration list for PBXNativeTarget "MapBookmarks-iOS" */;
 			buildPhases = (
-				D9E4EBD12A700ADF4766D1C8 /* Check Pods Manifest.lock */,
+				11E7E89D8761FA652EE684F7 /* [CP] Check Pods Manifest.lock */,
 				8E1797A31CA2943300206FCD /* Sources */,
 				8E1797A41CA2943300206FCD /* Frameworks */,
 				8E1797A51CA2943300206FCD /* Resources */,
-				BE0747BFF77FD3A8992991FF /* Embed Pods Frameworks */,
-				CA2D2051AA94840149D01F9C /* Copy Pods Resources */,
+				0FF094211AA1B4C024BCEB96 /* [CP] Embed Pods Frameworks */,
+				9E6975009C929DEBBC98141D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -383,7 +383,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = MB;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = Cleveroad;
 				TargetAttributes = {
 					8E1797A61CA2943300206FCD = {
@@ -435,49 +435,49 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		BE0747BFF77FD3A8992991FF /* Embed Pods Frameworks */ = {
+		0FF094211AA1B4C024BCEB96 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MapBookmarks-iOS/Pods-MapBookmarks-iOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CA2D2051AA94840149D01F9C /* Copy Pods Resources */ = {
+		11E7E89D8761FA652EE684F7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		D9E4EBD12A700ADF4766D1C8 /* Check Pods Manifest.lock */ = {
+		9E6975009C929DEBBC98141D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MapBookmarks-iOS/Pods-MapBookmarks-iOS-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -559,8 +559,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -582,7 +584,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -603,8 +605,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -620,7 +624,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -629,11 +633,11 @@
 		};
 		8E1797CA1CA2943400206FCD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B69A5E76DF02F78D07EF5A69 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 85D27DAA9152DB4253826CFB /* Pods-MapBookmarks-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "MapBookmarks-iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Cleveroad.MapBookmarks-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -642,11 +646,11 @@
 		};
 		8E1797CB1CA2943400206FCD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A2DADB760B1262E4A89EAC4D /* Pods.release.xcconfig */;
+			baseConfigurationReference = BF73481766BA5EB5E54EA239 /* Pods-MapBookmarks-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "MapBookmarks-iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Cleveroad.MapBookmarks-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
